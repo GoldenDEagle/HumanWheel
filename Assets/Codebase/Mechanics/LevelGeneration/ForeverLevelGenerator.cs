@@ -29,10 +29,10 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
         public Transform PlayerTransform { get => _playerTransform; set => _playerTransform = value; }
         public event Action OnGenerated;
 
-
+        // Move away from here
         private void Start()
         {
-            _playerTransform = FindObjectOfType<PlayerController>().transform;
+            Generate();
         }
 
         private void Update()
@@ -121,6 +121,9 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
             }
             _progress = 1.0f;
             OnGenerated?.Invoke();
+
+            // Remove later
+            _playerTransform = FindObjectOfType<PlayerController>().transform;
         }
         private void SelectSegments()
         {

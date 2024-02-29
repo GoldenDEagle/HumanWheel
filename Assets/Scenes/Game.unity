@@ -153,12 +153,13 @@ Transform:
   m_GameObject: {fileID: 107594064}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.25, z: -0.54}
+  m_LocalPosition: {x: 0, y: 2.25, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 926995587}
   - {fileID: 1900454158}
+  - {fileID: 1540362519}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &107594066
@@ -173,11 +174,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8861cb8d9cb4540449da6e9d84e6c504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motorTorque: 2000
-  brakeTorque: 2000
-  maxSpeed: 20
-  steeringRange: 30
-  steeringRangeAtMaxSpeed: 10
+  motorTorque: 2500
+  brakeTorque: 2500
+  maxSpeed: 300
+  steeringRange: 45
+  steeringRangeAtMaxSpeed: 30
   centreOfGravityOffset: -1
 --- !u!54 &107594068
 Rigidbody:
@@ -221,7 +222,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -573,7 +574,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &988172336
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -677,7 +678,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &994017773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -690,7 +691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6bdd9bb0dc763b4681e3f2ff98e6bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _level: {fileID: 0}
+  _level: {fileID: 11400000, guid: c5258c3f7eedc36489018921f4c02981, type: 2}
   _activeSegmentsBehind: 3
   _activeSegmentsAhead: 6
 --- !u!4 &994017774
@@ -794,11 +795,11 @@ Transform:
   m_GameObject: {fileID: 1540362516}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2588191, y: -0, z: -0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 14.535529, z: -10.880001}
+  m_LocalPosition: {x: 0, y: 12.285529, z: -10.340001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 107594065}
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
 --- !u!1 &1900454157
 GameObject:
@@ -896,5 +897,4 @@ SceneRoots:
   - {fileID: 988172339}
   - {fileID: 534896033}
   - {fileID: 107594065}
-  - {fileID: 1540362519}
   - {fileID: 994017774}
