@@ -20,7 +20,7 @@ namespace Assets.Codebase.Mechanics.Units
         [ContextMenu("Allign")]
         public void AllignUnits()
         {
-            _radius = _units.Count - 2;
+            _radius = _units.Count - 0.7f * _units.Count;
             for (int i = 0; i < _units.Count; i++)
             {
                 float circleposition = (float)i / (float)_units.Count;

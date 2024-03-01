@@ -21,6 +21,7 @@ namespace Assets.Codebase.Mechanics.Controller
         private void Awake()
         {
             WheelCollider = GetComponent<WheelCollider>();
+            WheelCollider.ConfigureVehicleSubsteps(5, 12, 15);
         }
 
         // Update is called once per frame
