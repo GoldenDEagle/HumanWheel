@@ -20,10 +20,13 @@ namespace Assets.Codebase.Mechanics.Controller
         private WheelController _wheel;
         private Rigidbody _rigidBody;
         private Vector2 _direction;
+        private BoxCollider _collider;
 
-        // Start is called before the first frame update
-        void Start()
+
+        private void Awake()
         {
+            _collider = GetComponent<BoxCollider>();
+
             _rigidBody = GetComponent<Rigidbody>();
 
             // Adjust center of mass vertically, to help prevent the car from rolling
@@ -33,12 +36,10 @@ namespace Assets.Codebase.Mechanics.Controller
             _wheel = GetComponentInChildren<WheelController>();
         }
 
-        private void OnEnable()
+        void Start()
         {
-            if (_unitContainer != null)
-            {
-                _unitContainer.OnRadiusChanged += UpdateWheelSize;
-            }
+            _unitContainer.AllignUnits();
+            UpdateWheelSize(_unitContainer.Radius);
         }
 
         public void SetDirection(Vector2 direction)
@@ -46,10 +47,18 @@ namespace Assets.Codebase.Mechanics.Controller
             _direction = direction;
         }
 
+        public void AttachNewUnit(Unit unit)
+        {
+            unit.transform.SetParent(_unitContainer.transform);
+            _unitContainer.AddUnit(unit);
+            UpdateWheelSize(_unitContainer.Radius);
+        }
+
         private void UpdateWheelSize(float newRadius)
         {
             _wheel.WheelCollider.radius = newRadius;
             transform.position = new Vector3(transform.position.x, newRadius, transform.position.z);
+            _collider.size = new Vector3(_collider.size.x, 2 * newRadius + 1, 2 * newRadius + 1);
         }
 
         // Update is called once per frame

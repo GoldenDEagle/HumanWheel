@@ -18,8 +18,7 @@ namespace Assets.Codebase.Mechanics.Controller
         Vector3 position;
         Quaternion rotation;
 
-        // Start is called before the first frame update
-        private void Start()
+        private void Awake()
         {
             WheelCollider = GetComponent<WheelCollider>();
         }

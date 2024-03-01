@@ -8,18 +8,26 @@ namespace Assets.Codebase.Mechanics.Units
     {
         [SerializeField] private List<Unit> _units;
 
-        public event Action<float> OnRadiusChanged;
+        private float _radius;
+        public float Radius => _radius;
+
+        public void AddUnit(Unit newUnit)
+        {
+            _units.Add(newUnit);
+            AllignUnits();
+        }
 
         [ContextMenu("Allign")]
         public void AllignUnits()
         {
-            float radius = _units.Count;
-            OnRadiusChanged?.Invoke(radius);
+            _radius = _units.Count - 2;
             for (int i = 0; i < _units.Count; i++)
             {
-                float angle = i * Mathf.PI * 2f / radius;
-                Vector3 newPos = transform.position + (new Vector3(0f, Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius));
-                _units[i].transform.position = newPos;
+                float circleposition = (float)i / (float)_units.Count;
+                float x = Mathf.Sin(circleposition * Mathf.PI * 2.0f) * _radius;
+                float z = Mathf.Cos(circleposition * Mathf.PI * 2.0f) * _radius;
+                _units[i].transform.position = transform.position + new Vector3(0.0f, z, x);
+                _units[i].transform.forward = (_units[i].transform.position - transform.position);
             }
         }
     }
