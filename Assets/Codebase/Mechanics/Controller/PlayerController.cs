@@ -56,7 +56,7 @@ namespace Assets.Codebase.Mechanics.Controller
 
         private void UpdateWheelSize(float newRadius)
         {
-            _wheel.WheelCollider.radius = newRadius;
+            _wheel.WheelCollider.radius = newRadius + 0.5f;
             transform.position = new Vector3(transform.position.x, newRadius, transform.position.z);
             _collider.size = new Vector3(_collider.size.x, 2 * newRadius + 1, 2 * newRadius + 1);
         }

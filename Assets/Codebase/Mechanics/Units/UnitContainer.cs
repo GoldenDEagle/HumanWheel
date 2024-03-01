@@ -24,10 +24,17 @@ namespace Assets.Codebase.Mechanics.Units
             for (int i = 0; i < _units.Count; i++)
             {
                 float circleposition = (float)i / (float)_units.Count;
-                float x = Mathf.Sin(circleposition * Mathf.PI * 2.0f) * _radius;
-                float z = Mathf.Cos(circleposition * Mathf.PI * 2.0f) * _radius;
-                _units[i].transform.position = transform.position + new Vector3(0.0f, z, x);
-                _units[i].transform.forward = (_units[i].transform.position - transform.position);
+                float z = Mathf.Sin(circleposition * Mathf.PI * 2.0f) * _radius;
+                float y = Mathf.Cos(circleposition * Mathf.PI * 2.0f) * _radius;
+                _units[i].transform.position = transform.position + new Vector3(0.0f, y, z);
+                _units[i].transform.forward = transform.position - _units[i].transform.position;
+
+                //// Now calculate the tangent vector at this point
+                //Vector3 tangent = new Vector3(0, _units[i].transform.position.z, _units[i].transform.position.y);
+
+                //// Use the tangent to set the object's rotation
+                //// Quaternion.LookRotation looks along the forward vector with the up vector being Vector3.up by default
+                //_units[i].transform.rotation = Quaternion.LookRotation(tangent, _units[i].transform.up);
             }
         }
     }
