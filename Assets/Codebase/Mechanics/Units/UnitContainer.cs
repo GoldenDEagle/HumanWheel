@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.WebSockets;
+using System.Xml.Xsl;
 using UnityEngine;
 
 namespace Assets.Codebase.Mechanics.Units
@@ -17,10 +19,27 @@ namespace Assets.Codebase.Mechanics.Units
             AllignUnits();
         }
 
+        public Unit RemoveUnit()
+        {
+            // If no units left
+            if (_units.Count < 1)
+            {
+                Debug.Log("All units lost!");
+                return null;
+            }
+
+            var unit = _units[0];
+            _units.RemoveAt(0);
+            unit.transform.SetParent(null);
+            unit.DisableInteractions();
+            AllignUnits();
+            return unit;
+        }
+
         [ContextMenu("Allign")]
         public void AllignUnits()
         {
-            _radius = _units.Count - 0.7f * _units.Count;
+            _radius = _units.Count - 0.6f * _units.Count;
 
             int numberOfObjects = _units.Count;
             float angleStep = 360.0f / numberOfObjects;

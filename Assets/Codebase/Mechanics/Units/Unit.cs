@@ -29,5 +29,11 @@ namespace Assets.Codebase.Mechanics.Units
                 player.AttachNewUnit(this);
             }
         }
+
+        public void DisableInteractions()
+        {
+            _collider.enabled = false;
+            _isConnected = false;
+        }
     }
 }

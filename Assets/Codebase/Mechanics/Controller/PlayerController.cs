@@ -72,6 +72,13 @@ namespace Assets.Codebase.Mechanics.Controller
             UpdateWheelSize(_unitContainer.Radius);
         }
 
+        public Unit GrabAUnit()
+        {
+            var unit = _unitContainer.RemoveUnit();
+            UpdateWheelSize(_unitContainer.Radius);
+            return unit;
+        }
+
         private void UpdateWheelSize(float newRadius)
         {
             _wheel.WheelCollider.radius = newRadius + 0.5f;
