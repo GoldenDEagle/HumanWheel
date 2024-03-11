@@ -15,8 +15,21 @@ namespace Assets.Codebase.Mechanics.Controller
 
         public void SetDirection(InputAction.CallbackContext context)
         {
-            var direction = context.ReadValue<Vector2>();
-            _playerController.SetDirection(direction);
+            //var direction = context.ReadValue<Vector2>();
+            //_playerController.SetDirection(direction);
+        }
+
+        public void OnTap(InputAction.CallbackContext context)
+        {
+            switch (context.phase)
+            {
+                case InputActionPhase.Performed:
+                    _playerController.SetTapStatus(true);
+                    break;
+                case InputActionPhase.Canceled:
+                    _playerController.SetTapStatus(false);
+                    break;
+            }
         }
     }
 }

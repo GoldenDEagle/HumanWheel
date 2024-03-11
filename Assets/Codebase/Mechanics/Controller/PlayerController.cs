@@ -1,8 +1,6 @@
 ﻿using Assets.Codebase.Mechanics.Units;
-using System.Collections;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
-using UnityEngine.Windows;
+using UnityEngine.InputSystem;
 
 namespace Assets.Codebase.Mechanics.Controller
 {
@@ -21,6 +19,8 @@ namespace Assets.Codebase.Mechanics.Controller
         private Rigidbody _rigidBody;
         private Vector2 _direction;
         private BoxCollider _collider;
+
+        private bool _tapIsActive = false;
 
 
         private void Awake()
@@ -47,6 +47,24 @@ namespace Assets.Codebase.Mechanics.Controller
             _direction = direction;
         }
 
+        public void SetDirectionBasedOnPointer()
+        {
+            var goPos = Camera.main.WorldToScreenPoint(transform.position);
+            goPos.z = 0;
+            Vector3 mousePos = Pointer.current.position.ReadValue();
+
+            var dist = Vector3.Distance(goPos, mousePos);
+            var dir = (mousePos - goPos).normalized;
+            SetDirection(dir);
+
+            Debug.Log("dir: " + dir);
+        }
+
+        public void SetTapStatus(bool status)
+        {
+            _tapIsActive = status;
+        }
+
         public void AttachNewUnit(Unit unit)
         {
             unit.transform.SetParent(_unitContainer.transform);
@@ -64,11 +82,19 @@ namespace Assets.Codebase.Mechanics.Controller
         // Update is called once per frame
         void Update()
         {
-            //float vInput = Input.GetAxis("Vertical");
-            //float hInput = Input.GetAxis("Horizontal");
+            float vInput = 1f;
+            float hInput;
 
-            float vInput = _direction.y;
-            float hInput = _direction.x;
+            if (_tapIsActive)
+            {
+                SetDirectionBasedOnPointer();
+            }
+            else
+            {
+                SetDirection(Vector2.zero);
+            }
+
+            hInput = _direction.x;
 
             // Calculate current speed in relation to the forward direction of the car
             // (this returns a negative number when traveling backwards)
