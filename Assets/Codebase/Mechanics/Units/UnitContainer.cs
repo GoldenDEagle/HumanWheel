@@ -21,21 +21,37 @@ namespace Assets.Codebase.Mechanics.Units
         public void AllignUnits()
         {
             _radius = _units.Count - 0.7f * _units.Count;
-            for (int i = 0; i < _units.Count; i++)
+
+            int numberOfObjects = _units.Count;
+            float angleStep = 360.0f / numberOfObjects;
+
+            for (int i = 0; i < numberOfObjects; i++)
             {
-                float circleposition = (float)i / (float)_units.Count;
-                float z = Mathf.Sin(circleposition * Mathf.PI * 2.0f) * _radius;
-                float y = Mathf.Cos(circleposition * Mathf.PI * 2.0f) * _radius;
-                _units[i].transform.position = transform.position + new Vector3(0.0f, y, z);
-                _units[i].transform.forward = transform.position - _units[i].transform.position;
+                // Calculate angle for this object
+                float angle = i * angleStep;
+                float radianAngle = angle * Mathf.Deg2Rad;
 
-                //// Now calculate the tangent vector at this point
-                //Vector3 tangent = new Vector3(0, _units[i].transform.position.z, _units[i].transform.position.y);
+                // Position calculation based on circle formula
+                Vector3 positionOnWheel = transform.position + new Vector3(0, Mathf.Sin(radianAngle) * _radius, Mathf.Cos(radianAngle) * _radius);
 
-                //// Use the tangent to set the object's rotation
-                //// Quaternion.LookRotation looks along the forward vector with the up vector being Vector3.up by default
-                //_units[i].transform.rotation = Quaternion.LookRotation(tangent, _units[i].transform.up);
+                // Update the object's position
+                _units[i].transform.position = positionOnWheel;
+
+                // Orientation calculation - objects should be tangentially oriented
+                // The tangent to a circle at any point is perpendicular to the radius at that point
+                // So, we calculate the forward direction for the object as the cross product of the radius vector and the upward axis
+                Vector3 radiusVector = positionOnWheel - transform.position;
+                Vector3 tangentDirection = Vector3.Cross(radiusVector, Vector3.right).normalized;
+
+                // Align the object's up vector with the calculated tangentDirection
+                // Since we want the object's local up vector to be aligned with the tangent, we use the cross product to ensure this alignment
+                _units[i].transform.up = tangentDirection;
+
+                // Rotation offset because of pivot in the legs
+                _units[i].transform.Rotate(-20f, 0, 0);
             }
         }
     }
+
+
 }
