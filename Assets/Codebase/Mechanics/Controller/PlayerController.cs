@@ -79,6 +79,11 @@ namespace Assets.Codebase.Mechanics.Controller
             return unit;
         }
 
+        public void ReactToWallCollision()
+        {
+            _rigidBody.AddForce(transform.up * 10000, ForceMode.Impulse);
+        }
+        
         private void UpdateWheelSize(float newRadius)
         {
             _wheel.WheelCollider.radius = newRadius + 0.5f;
