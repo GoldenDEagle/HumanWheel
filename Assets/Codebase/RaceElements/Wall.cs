@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Codebase.RaceElements
 {
-    [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(BoxCollider))]
     public class Wall : MonoBehaviour
     {
         [SerializeField] private Transform _attachedUnitTransform;
@@ -13,7 +13,7 @@ namespace Assets.Codebase.RaceElements
 
         private void Awake()
         {
-            _collider = GetComponent<Collider>();
+            _collider = GetComponent<BoxCollider>();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -33,6 +33,8 @@ namespace Assets.Codebase.RaceElements
                 Vector3 unitPosition = new Vector3(playerWheel.transform.position.x, _attachedUnitTransform.position.y, _attachedUnitTransform.position.z);
                 unit.transform.SetPositionAndRotation(unitPosition, _attachedUnitTransform.transform.rotation);
                 playerWheel.ReactToWallCollision();
+
+                Debug.Log("Wall contacted!");
             }
         }
     }

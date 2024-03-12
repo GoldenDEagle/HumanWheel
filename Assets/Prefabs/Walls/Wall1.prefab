@@ -173,8 +173,16 @@ PrefabInstance:
       value: WallCollider
       objectReference: {fileID: 0}
     - target: {fileID: 6780507661571719801, guid: 0ff03f147a70bc6438ab81680cfe7df0, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780507661571719801, guid: 0ff03f147a70bc6438ab81680cfe7df0, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 8383192562454498817, guid: 0ff03f147a70bc6438ab81680cfe7df0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7274432350763403034, guid: 0ff03f147a70bc6438ab81680cfe7df0, type: 3}

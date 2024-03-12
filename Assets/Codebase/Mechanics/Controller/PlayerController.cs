@@ -21,7 +21,7 @@ namespace Assets.Codebase.Mechanics.Controller
         private BoxCollider _collider;
 
         private bool _tapIsActive = false;
-
+        private bool _isOnTheWall = false;
 
         private void Awake()
         {
@@ -56,8 +56,6 @@ namespace Assets.Codebase.Mechanics.Controller
             var dist = Vector3.Distance(goPos, mousePos);
             var dir = (mousePos - goPos).normalized;
             SetDirection(dir);
-
-            Debug.Log("dir: " + dir);
         }
 
         public void SetTapStatus(bool status)
@@ -81,9 +79,18 @@ namespace Assets.Codebase.Mechanics.Controller
 
         public void ReactToWallCollision()
         {
-            _rigidBody.AddForce(transform.up * 10000, ForceMode.Impulse);
+            //var positionOffset = Vector3.up * wallHeight;
+            //_rigidBody.Move(_rigidBody.position + positionOffset, _rigidBody.rotation);
+            //_rigidBody.AddForce(transform.up * 5000, ForceMode.Impulse);
+            _isOnTheWall = true;
         }
-        
+
+        public void EscapeWall()
+        {
+            _isOnTheWall = false;
+            _rigidBody.AddForce(Vector3.forward * 6000, ForceMode.Impulse);
+        }
+
         private void UpdateWheelSize(float newRadius)
         {
             _wheel.WheelCollider.radius = newRadius + 0.5f;
@@ -94,6 +101,13 @@ namespace Assets.Codebase.Mechanics.Controller
         // Update is called once per frame
         void Update()
         {
+            if (_isOnTheWall)
+            {
+                _rigidBody.velocity = new Vector3(0f, 10f, 0.5f);
+                _wheel.WheelCollider.rotationSpeed = 90f;
+                return;
+            }
+
             float vInput = 1f;
             float hInput;
 
