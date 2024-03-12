@@ -95,7 +95,8 @@ namespace Assets.Codebase.Mechanics.Controller
         {
             _wheel.WheelCollider.radius = newRadius + 0.5f;
             transform.position = new Vector3(transform.position.x, newRadius, transform.position.z);
-            _collider.size = new Vector3(_collider.size.x, 2 * newRadius + 1, 2 * newRadius + 1);
+            _collider.center = new Vector3(0f, -newRadius, 0f);
+            _collider.size = new Vector3(_collider.size.x, newRadius + 1, newRadius + 1);
         }
 
         // Update is called once per frame
