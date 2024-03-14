@@ -55,28 +55,29 @@ namespace Assets.Codebase.Mechanics.Units
 
             for (int i = 0; i < numberOfObjects; i++)
             {
-                // Calculate angle for this object
+                // Calculate angle for this object in radians
                 float angle = i * angleStep;
                 float radianAngle = angle * Mathf.Deg2Rad;
 
-                // Position calculation based on circle formula
-                Vector3 positionOnWheel = transform.position + new Vector3(0, Mathf.Sin(radianAngle) * _radius, Mathf.Cos(radianAngle) * _radius);
+                // Position calculation based on circle formula in local space
+                Vector3 localPositionOnWheel = new Vector3(0, Mathf.Sin(radianAngle) * _radius, Mathf.Cos(radianAngle) * _radius);
+
+                // Convert local position to world position
+                Vector3 worldPositionOnWheel = transform.TransformPoint(localPositionOnWheel);
 
                 // Update the object's position
-                _units[i].transform.position = positionOnWheel;
+                _units[i].transform.position = worldPositionOnWheel;
 
-                // Orientation calculation - objects should be tangentially oriented
-                // The tangent to a circle at any point is perpendicular to the radius at that point
-                // So, we calculate the forward direction for the object as the cross product of the radius vector and the upward axis
-                Vector3 radiusVector = positionOnWheel - transform.position;
-                Vector3 tangentDirection = Vector3.Cross(radiusVector, Vector3.right).normalized;
+                Vector3 localRadiusVector = localPositionOnWheel - Vector3.zero; // Local radius vector
+                Vector3 worldRadiusVector = transform.TransformDirection(localRadiusVector); // Convert local radius vector to world space
+
+                Vector3 tangentDirection = Vector3.Cross(worldRadiusVector, transform.right).normalized; // Cross product in world space
 
                 // Align the object's up vector with the calculated tangentDirection
-                // Since we want the object's local up vector to be aligned with the tangent, we use the cross product to ensure this alignment
                 _units[i].transform.up = tangentDirection;
 
-                // Rotation offset because of pivot in the legs
-                _units[i].transform.Rotate(-20f, 0, 0);
+                //// Additional rotation beacause of leg pivot
+                //_units[i].transform.Rotate(-20f, 0f, 0f);
             }
         }
     }
