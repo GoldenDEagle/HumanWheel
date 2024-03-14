@@ -1,3 +1,4 @@
+using Assets.Codebase.Mechanics.Controller;
 using UnityEngine;
 
 namespace CodeBase.RaceElements
@@ -5,29 +6,21 @@ namespace CodeBase.RaceElements
     [RequireComponent(typeof(Collider))]
     public class JumpZone : MonoBehaviour
     {
-        //private bool _firstEnter = true;
-        //private ICameraService _cameraService;
+        private Collider _collider;
 
-        //private void Awake()
-        //    => _cameraService = ServiceLocator.Container.Single<ICameraService>();
+        private void Awake()
+        {
+            _collider = GetComponent<Collider>();
+        }
 
-        //private void OnTriggerEnter(Collider other)
-        //{
-        //    if (_firstEnter)
-        //    {
-        //        _cameraService.SetCameraUpdateState(UpdateState.LateUpdate);
-        //        _firstEnter = false;
-        //    }
-
-
-        //    if (other.TryGetComponent(out PhysicsJump jump))
-        //    {
-        //        jump.Jump(transform.forward);
-        //    }
-        //    else if (other.TryGetComponent(out UnitsJumpController jumpController))
-        //    {
-        //        jumpController.SendJumpCommand();
-        //    }
-        //}
+        private void OnTriggerEnter(Collider other)
+        {
+            PlayerController playerWheel = other.GetComponent<PlayerController>();
+            if (playerWheel)
+            {
+                _collider.enabled = false;
+                playerWheel.DoJump();
+            }
+        }
     }
 }

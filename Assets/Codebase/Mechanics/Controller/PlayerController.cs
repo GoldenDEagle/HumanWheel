@@ -6,6 +6,7 @@ namespace Assets.Codebase.Mechanics.Controller
 {
     public class PlayerController : MonoBehaviour
     {
+        [Header("Wheel parameters")]
         public float motorTorque = 2000;
         public float brakeTorque = 2000;
         public float maxSpeed = 20;
@@ -13,6 +14,11 @@ namespace Assets.Codebase.Mechanics.Controller
         public float steeringRangeAtMaxSpeed = 10;
         public float centreOfGravityOffset = -1f;
 
+        [Header("Gameplay mechanics params")]
+        [SerializeField] private float _wallBoostStrength = 5000f;
+        [SerializeField] private float _jumpForce = 2500f;
+
+        [Header("References")]
         [SerializeField] private UnitContainer _unitContainer;
 
         private WheelController _wheel;
@@ -88,16 +94,22 @@ namespace Assets.Codebase.Mechanics.Controller
         public void EscapeWall()
         {
             _isOnTheWall = false;
-            _rigidBody.AddForce(Vector3.forward * 6000, ForceMode.Impulse);
+            _rigidBody.AddForce(Vector3.forward * _wallBoostStrength, ForceMode.Impulse);
+        }
+
+        public void DoJump()
+        {
+            _rigidBody.AddForce((Vector3.forward + Vector3.up) * _jumpForce, ForceMode.Impulse);
         }
 
         private void UpdateWheelSize(float newRadius)
         {
             _wheel.WheelCollider.radius = newRadius + 0.5f;
-            transform.position = new Vector3(transform.position.x, newRadius, transform.position.z);
+            //transform.position = new Vector3(transform.position.x, newRadius, transform.position.z);
             _collider.center = new Vector3(0f, -newRadius, 0f);
             _collider.size = new Vector3(_collider.size.x, newRadius + 1, newRadius + 1);
         }
+
 
         // Update is called once per frame
         void Update()

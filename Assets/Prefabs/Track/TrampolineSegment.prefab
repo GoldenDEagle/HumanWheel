@@ -468,11 +468,11 @@ MonoBehaviour:
     colliders: []
     _isRoot: 0
   bounds:
-    center: {x: -0.07301283, y: -3.6142898, z: 30.55}
-    extents: {x: 13.073021, y: 6.3857102, z: 30.55}
-    max: {x: 13.000008, y: 2.7714202, z: 61.1}
+    center: {x: -0.07301283, y: -3.2811527, z: 30.55}
+    extents: {x: 13.073021, y: 6.7188473, z: 30.55}
+    max: {x: 13.000008, y: 3.4376945, z: 61.1}
     min: {x: -13.146033, y: -10, z: -0.00000087422774}
-    size: {x: 26.146042, y: 12.7714205, z: 61.1}
+    size: {x: 26.146042, y: 13.437695, z: 61.1}
   builders: []
   unpacked: 0
   alwaysDraw: 0
@@ -1034,11 +1034,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5671958941905352123, guid: 21e57f0f718e1584cafbb9e52b4242b2, type: 3}
       propertyPath: m_Size.x
-      value: 17.760075
+      value: 17.849358
       objectReference: {fileID: 0}
     - target: {fileID: 5671958941905352123, guid: 21e57f0f718e1584cafbb9e52b4242b2, type: 3}
       propertyPath: m_Size.y
-      value: 1.3038692
+      value: 2.5289357
       objectReference: {fileID: 0}
     - target: {fileID: 5671958941905352123, guid: 21e57f0f718e1584cafbb9e52b4242b2, type: 3}
       propertyPath: m_Size.z
@@ -1046,11 +1046,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5671958941905352123, guid: 21e57f0f718e1584cafbb9e52b4242b2, type: 3}
       propertyPath: m_Center.x
-      value: 5.941183
+      value: 6.5193367
       objectReference: {fileID: 0}
     - target: {fileID: 5671958941905352123, guid: 21e57f0f718e1584cafbb9e52b4242b2, type: 3}
       propertyPath: m_Center.y
-      value: 2.0341916
+      value: 2.1732266
       objectReference: {fileID: 0}
     - target: {fileID: 5671958941905352123, guid: 21e57f0f718e1584cafbb9e52b4242b2, type: 3}
       propertyPath: m_Center.z
