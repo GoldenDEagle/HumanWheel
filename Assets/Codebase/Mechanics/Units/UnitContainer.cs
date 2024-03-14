@@ -13,6 +13,8 @@ namespace Assets.Codebase.Mechanics.Units
         private float _radius;
         public float Radius => _radius;
 
+        public event Action OnAllUnitsLost;
+
         public void AddUnit(Unit newUnit)
         {
             _units.Add(newUnit);
@@ -24,7 +26,7 @@ namespace Assets.Codebase.Mechanics.Units
             // If no units left
             if (_units.Count < 1)
             {
-                Debug.Log("All units lost!");
+                Debug.Log("No available units!");
                 return null;
             }
 
@@ -33,6 +35,13 @@ namespace Assets.Codebase.Mechanics.Units
             unit.transform.SetParent(null);
             unit.DisableInteractions();
             AllignUnits();
+
+            // If removed last unit
+            if (_units.Count < 1)
+            {
+                OnAllUnitsLost?.Invoke();
+            }
+
             return unit;
         }
 

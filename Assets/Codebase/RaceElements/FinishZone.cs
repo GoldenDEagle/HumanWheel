@@ -1,3 +1,7 @@
+using Assets.Codebase.Mechanics.Controller;
+using Assets.Codebase.RaceElements;
+using Cinemachine;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace CodeBase.RaceElements
@@ -5,32 +9,49 @@ namespace CodeBase.RaceElements
     [RequireComponent((typeof(Collider)))]
     public class FinishZone : MonoBehaviour
     {
-        //private const string PlayerLayerName = "Player";
-        
-        //private int _playerLayer;
-        //private TriangleGrid _triangleGrid;
-        //private ISpawnService _spawnService;
+        [SerializeField] private List<Wall> _walls;
+        [SerializeField] private Transform _cameraPoint;
 
-        //private void Awake()
-        //{
-        //    _spawnService = ServiceLocator.Container.Single<ISpawnService>();
-        //    _triangleGrid = GetComponent<TriangleGrid>();
-        //    _playerLayer = LayerMask.NameToLayer(PlayerLayerName);
-        //}
+        private Collider _collider;
 
-        //private void OnTriggerEnter(Collider other)
-        //{
-        //    if (other.gameObject.layer == _playerLayer)
-        //    {
-        //        _spawnService.Player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        //        _spawnService.MasterUnit.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        //        foreach (GameObject unit in _spawnService.Player.UnitList)
-        //        {
-        //            unit.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        //        }
+        private void Awake()
+        {
+            _collider = GetComponent<BoxCollider>();
+        }
 
-        //        _triangleGrid.enabled = true;
-        //    }
-        //}
+        private void OnTriggerEnter(Collider other)
+        {
+            PlayerController playerWheel = other.GetComponent<PlayerController>();
+            if (playerWheel)
+            {
+                _collider.enabled = false;
+                Debug.Log("Finish crossed!");
+
+                // Connect with player
+                playerWheel.FinishCrossed();
+                playerWheel.OnAllUnitsLost += AllUnitsPlaced;
+
+                // Set Camera
+                var camera = GameObject.FindWithTag("Cinemachine").GetComponent<CinemachineVirtualCamera>();
+                if (camera)
+                {
+                    camera.Follow = _cameraPoint;
+                }
+            }
+        }
+
+        private void AllUnitsPlaced()
+        {
+            int humanCount = 0;
+            foreach (var wall in _walls)
+            {
+                if (wall.IsOccupied)
+                {
+                    humanCount++;
+                }
+            }
+
+            Debug.Log("GAME SCORE: " + humanCount);
+        }
     }
 }

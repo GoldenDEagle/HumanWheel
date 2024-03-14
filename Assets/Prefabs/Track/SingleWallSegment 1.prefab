@@ -370,7 +370,8 @@ MonoBehaviour:
     meshFilter: {fileID: 8886692237761955258}
     meshCollider: {fileID: 0}
     spriteRenderer: {fileID: 0}
-    colliders: []
+    colliders:
+    - {fileID: 6063185004229778704}
     _isRoot: 0
   - transform: {fileID: 8893385639220679661}
     localRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -2545,6 +2546,11 @@ Transform:
 --- !u!4 &5935880123764645751 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7527632574896669467, guid: 00a234c3f17bbf744a9c7f33e1333bda, type: 3}
+  m_PrefabInstance: {fileID: 4186094153977502828}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &6063185004229778704 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 7940757463790010748, guid: 00a234c3f17bbf744a9c7f33e1333bda, type: 3}
   m_PrefabInstance: {fileID: 4186094153977502828}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &6223999817934877078 stripped

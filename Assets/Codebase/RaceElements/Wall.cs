@@ -10,6 +10,9 @@ namespace Assets.Codebase.RaceElements
         [SerializeField] private Transform _attachedUnitTransform;
 
         private Collider _collider;
+        private bool _isOccupied = false;
+
+        public bool IsOccupied => _isOccupied;
 
         private void Awake()
         {
@@ -21,11 +24,13 @@ namespace Assets.Codebase.RaceElements
             PlayerController playerWheel = other.GetComponent<PlayerController>();
             if (playerWheel)
             {
+                Debug.Log("Climbing a wall...");
                 _collider.enabled = false;
+                _isOccupied = true;
                 var unit = playerWheel.GrabAUnit();
                 if (unit == null)
                 {
-                    Debug.Log("No available units!");
+                    Debug.Log("Not enough units to climb the wall!");
                     return;
                 }
 
@@ -33,8 +38,6 @@ namespace Assets.Codebase.RaceElements
                 Vector3 unitPosition = new Vector3(playerWheel.transform.position.x, _attachedUnitTransform.position.y, _attachedUnitTransform.position.z);
                 unit.transform.SetPositionAndRotation(unitPosition, _attachedUnitTransform.transform.rotation);
                 playerWheel.ReactToWallCollision();
-
-                Debug.Log("Wall contacted!");
             }
         }
     }

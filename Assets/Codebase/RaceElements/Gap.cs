@@ -24,7 +24,7 @@ namespace Assets.Codebase.RaceElements
                 var unit = playerWheel.GrabAUnit();
                 if (unit == null)
                 {
-                    Debug.Log("No available units!");
+                    Debug.Log("Couldn't fill the gap! No units!");
                     return;
                 }
 

@@ -277,7 +277,7 @@ MonoBehaviour:
   steeringRangeAtMaxSpeed: 30
   centreOfGravityOffset: -1
   _wallBoostStrength: 5000
-  _jumpForce: 2500
+  _jumpForce: 5000
   _unitContainer: {fileID: 143094182}
 --- !u!54 &107594068
 Rigidbody:
@@ -529,7 +529,7 @@ GameObject:
   - component: {fileID: 236736029}
   m_Layer: 0
   m_Name: Cinemachine
-  m_TagString: Untagged
+  m_TagString: Cinemachine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

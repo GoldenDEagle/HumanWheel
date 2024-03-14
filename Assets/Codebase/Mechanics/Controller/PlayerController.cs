@@ -1,4 +1,5 @@
 ﻿using Assets.Codebase.Mechanics.Units;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -28,6 +29,10 @@ namespace Assets.Codebase.Mechanics.Controller
 
         private bool _tapIsActive = false;
         private bool _isOnTheWall = false;
+        private bool _isFinished = false;
+        private bool _allUnitsLost = false;
+
+        public event Action OnAllUnitsLost;
 
         private void Awake()
         {
@@ -46,6 +51,16 @@ namespace Assets.Codebase.Mechanics.Controller
         {
             _unitContainer.AllignUnits();
             UpdateWheelSize(_unitContainer.Radius);
+        }
+
+        private void OnEnable()
+        {
+            _unitContainer.OnAllUnitsLost += LostAllUnits;
+        }
+
+        private void OnDisable()
+        {
+            _unitContainer.OnAllUnitsLost -= LostAllUnits;
         }
 
         public void SetDirection(Vector2 direction)
@@ -99,7 +114,24 @@ namespace Assets.Codebase.Mechanics.Controller
 
         public void DoJump()
         {
-            _rigidBody.AddForce((Vector3.forward + Vector3.up) * _jumpForce, ForceMode.Impulse);
+            _rigidBody.AddForce((0.5f * Vector3.forward + Vector3.up) * _jumpForce, ForceMode.Impulse);
+        }
+
+        public void FinishCrossed()
+        {
+            _isFinished = true;
+            var input = GetComponent<InputReader>();
+            if (input != null) { input.enabled = false; }
+            _tapIsActive = false;
+        }
+
+        private void LostAllUnits()
+        {
+            Debug.Log("All units lost!");
+            OnAllUnitsLost?.Invoke();
+            _allUnitsLost = true;
+            _rigidBody.useGravity = false;
+            _rigidBody.velocity = Vector3.zero;
         }
 
         private void UpdateWheelSize(float newRadius)
@@ -114,6 +146,8 @@ namespace Assets.Codebase.Mechanics.Controller
         // Update is called once per frame
         void Update()
         {
+            if (_allUnitsLost) return;
+
             if (_isOnTheWall)
             {
                 _rigidBody.velocity = new Vector3(0f, 10f, 0.5f);

@@ -20,7 +20,7 @@ namespace Assets.Codebase.RaceElements
             {
                 _collider.enabled = false;
                 playerWheel.EscapeWall();
-                Debug.Log("Wall broken!");
+                Debug.Log("Wall passed!");
             }
         }
     }
