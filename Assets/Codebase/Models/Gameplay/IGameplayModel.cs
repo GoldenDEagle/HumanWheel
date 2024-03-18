@@ -1,6 +1,8 @@
-﻿using Assets.Codebase.Models.Base;
+﻿using Assets.Codebase.Infrastructure.Initialization;
+using Assets.Codebase.Models.Base;
 using Assets.Codebase.Models.Gameplay.Data;
 using Assets.Codebase.Views.Base;
+using System;
 using UniRx;
 
 namespace Assets.Codebase.Models.Gameplay
@@ -26,5 +28,7 @@ namespace Assets.Codebase.Models.Gameplay
         public ReactiveProperty<GameState> State { get; }
 
         public void ChangeGameState(GameState state);
+
+        public void LoadScene(string name, Action onLoaded = null);
     }
 }

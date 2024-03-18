@@ -11,6 +11,7 @@ using Assets.Codebase.Models.Gameplay;
 using Assets.Codebase.Models.Progress;
 using Assets.Codebase.Presenters.Base;
 using Assets.Codebase.Presenters.Example;
+using Assets.Codebase.Presenters.MainMenu;
 using GamePush;
 using System.Collections.Generic;
 using UnityEngine;
@@ -68,8 +69,11 @@ namespace Assets.Codebase.Infrastructure.Initialization
         private void CreatePresenters()
         {
             // Create presenter for each view
-            _presenters = new List<BasePresenter>();
-            _presenters.Add(new ExamplePresenter());
+            _presenters = new List<BasePresenter>
+            {
+                new ExamplePresenter(),
+                new MainMenuPresenter()
+            };
 
             foreach (var presenter in _presenters)
             {

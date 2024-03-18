@@ -23,7 +23,7 @@ namespace Assets.Codebase.Presenters.Base
         /// <summary>
         /// Corresponding view Id.
         /// </summary>
-        protected ViewId ViewId = ViewId.None;
+        protected ViewId CorrespondingViewId = ViewId.None;
 
 
         // Fire this to close view.
@@ -51,8 +51,8 @@ namespace Assets.Codebase.Presenters.Base
         /// </summary>
         protected virtual void SubscribeToModelChanges()
         {
-            GameplayModel.ActiveViewId.Where(activeView => activeView == ViewId).Subscribe(_ => CreateView()).AddTo(CompositeDisposable);
-            GameplayModel.OnViewClosed.Where(activeView => activeView == ViewId).Subscribe(_ => CloseView()).AddTo(CompositeDisposable);
+            GameplayModel.ActiveViewId.Where(activeView => activeView == CorrespondingViewId).Subscribe(_ => CreateView()).AddTo(CompositeDisposable);
+            GameplayModel.OnViewClosed.Where(activeView => activeView == CorrespondingViewId).Subscribe(_ => CloseView()).AddTo(CompositeDisposable);
         }
 
         public void CloseView()
@@ -69,7 +69,7 @@ namespace Assets.Codebase.Presenters.Base
         /// <returns></returns>
         public ViewId GetCorrespondingViewId()
         {
-            return ViewId;
+            return CorrespondingViewId;
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Assets.Codebase.Presenters.Base
         public virtual void CreateView()
         {
             _isViewActive = true;
-            var view = ServiceLocator.Container.Single<IViewCreatorService>().CreateView(ViewId);
+            var view = ServiceLocator.Container.Single<IViewCreatorService>().CreateView(CorrespondingViewId);
             view.Init(this);
         }
 

@@ -18,7 +18,7 @@ namespace Assets.Codebase.Presenters.Example
         public ExamplePresenter()
         {
             // Corresponding view id
-            ViewId = ViewId.ExampleView;
+            CorrespondingViewId = ViewId.ExampleView;
 
             // Init all properties
             StartButtonText = new ReactiveProperty<string>(StartText);

@@ -19,7 +19,7 @@ namespace Assets.Codebase.Infrastructure
             GameStructure structure = new GameStructure(_uiRoot, _launchParams);
 
             // Start the game
-            ServiceLocator.Container.Single<IGameplayService>().GameplayModel.ActivateView(ViewId.ExampleView);
+            ServiceLocator.Container.Single<IGameplayService>().GameplayModel.LoadScene("Menu", () => { ServiceLocator.Container.Single<IGameplayService>().GameplayModel.ActivateView(ViewId.MainMenuView); });
         }
     }
 }

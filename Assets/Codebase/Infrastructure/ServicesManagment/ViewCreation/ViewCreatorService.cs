@@ -20,6 +20,7 @@ namespace Assets.Codebase.Infrastructure.ServicesManagment.ViewCreation
 
         // Paths to all view prefabs
         private const string ExampleViewPathPath = "Views/ExampleView";
+        private const string MainMenuViewPathPath = "Views/MainMenuView";
 
         private IAssetProvider _assets;
 
@@ -49,6 +50,9 @@ namespace Assets.Codebase.Infrastructure.ServicesManagment.ViewCreation
                     break;
                 case ViewId.ExampleView:
                     path = ExampleViewPathPath;
+                    break;
+                case ViewId.MainMenuView:
+                    path = MainMenuViewPathPath;
                     break;
                 default:
                     throw new System.ArgumentException(nameof(viewId));

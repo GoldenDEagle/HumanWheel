@@ -1,6 +1,8 @@
-﻿using Assets.Codebase.Models.Base;
+﻿using Assets.Codebase.Infrastructure.Initialization;
+using Assets.Codebase.Models.Base;
 using Assets.Codebase.Models.Gameplay.Data;
 using Assets.Codebase.Views.Base;
+using System;
 using UniRx;
 
 namespace Assets.Codebase.Models.Gameplay
@@ -11,6 +13,7 @@ namespace Assets.Codebase.Models.Gameplay
         private ReactiveProperty<GameState> _state;
         private ReactiveProperty<ViewId> _activeViewId;
         private Subject<ViewId> _onViewClosed;
+        private SceneLoader _sceneLoader;
 
 
         // Public properties
@@ -20,6 +23,7 @@ namespace Assets.Codebase.Models.Gameplay
 
         public GameplayModel()
         {
+            _sceneLoader = new SceneLoader();
             _state = new ReactiveProperty<GameState>(GameState.None);
             _activeViewId = new ReactiveProperty<ViewId>(ViewId.None);
             _onViewClosed = new Subject<ViewId>();
@@ -41,6 +45,11 @@ namespace Assets.Codebase.Models.Gameplay
         public void ChangeGameState(GameState state)
         {
             State.Value = state;
+        }
+
+        public void LoadScene(string name, Action onLoaded = null)
+        {
+            _sceneLoader.Load(name, onLoaded);
         }
     }
 }

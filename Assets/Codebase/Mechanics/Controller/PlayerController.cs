@@ -180,7 +180,8 @@ namespace Assets.Codebase.Mechanics.Controller
 
             // Use that to calculate how much torque is available 
             // (zero torque at top speed)
-            float currentMotorTorque = Mathf.Lerp(motorTorque, 0, speedFactor);
+            //float currentMotorTorque = Mathf.Lerp(motorTorque, 0, speedFactor);
+            float currentMotorTorque = motorTorque;
 
             // …and to calculate how much to steer 
             // (the car steers more gently at top speed)
