@@ -14,6 +14,7 @@ namespace Assets.Codebase.Mechanics.Controller
         public float steeringRange = 30;
         public float steeringRangeAtMaxSpeed = 10;
         public float centreOfGravityOffset = -1f;
+        public float steerLerpSpeed = 10f;
 
         [Header("Gameplay mechanics params")]
         [SerializeField] private float _wallBoostStrength = 5000f;
@@ -180,8 +181,7 @@ namespace Assets.Codebase.Mechanics.Controller
 
             // Use that to calculate how much torque is available 
             // (zero torque at top speed)
-            //float currentMotorTorque = Mathf.Lerp(motorTorque, 0, speedFactor);
-            float currentMotorTorque = motorTorque;
+            float currentMotorTorque = Mathf.Lerp(motorTorque, 0, speedFactor);
 
             // …and to calculate how much to steer 
             // (the car steers more gently at top speed)
@@ -195,7 +195,10 @@ namespace Assets.Codebase.Mechanics.Controller
             // Apply steering to Wheel colliders that have "Steerable" enabled
             if (_wheel.steerable)
             {
-                _wheel.WheelCollider.steerAngle = hInput * currentSteerRange;
+                var currentSteer = _wheel.WheelCollider.steerAngle;
+                var targetSteer = hInput * currentSteerRange;
+                _wheel.WheelCollider.steerAngle = Mathf.Lerp(currentSteer, targetSteer, Time.deltaTime * steerLerpSpeed);
+                //_wheel.WheelCollider.steerAngle = hInput * currentSteerRange;
             }
 
             if (isAccelerating)
