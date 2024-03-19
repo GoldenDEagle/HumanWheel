@@ -6,5 +6,9 @@
         None,
         ExampleView,
         MainMenuView,
+        EndgameView,
+        IngameView,
+        FailView,
+        PauseView,
     }
 }

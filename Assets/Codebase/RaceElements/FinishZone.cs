@@ -1,5 +1,8 @@
+using Assets.Codebase.Infrastructure.ServicesManagment;
+using Assets.Codebase.Infrastructure.ServicesManagment.ModelAccess;
 using Assets.Codebase.Mechanics.Controller;
 using Assets.Codebase.RaceElements;
+using Assets.Codebase.Views.Base;
 using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,6 +55,7 @@ namespace CodeBase.RaceElements
             }
 
             Debug.Log("GAME SCORE: " + humanCount);
+            ServiceLocator.Container.Single<IModelAccesService>().GameplayModel.ActivateView(ViewId.EndgameView);
         }
     }
 }
