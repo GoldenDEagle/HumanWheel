@@ -11,6 +11,7 @@ using Assets.Codebase.Models.Progress;
 using Assets.Codebase.Presenters.Base;
 using Assets.Codebase.Presenters.EndGame;
 using Assets.Codebase.Presenters.Example;
+using Assets.Codebase.Presenters.Fail;
 using Assets.Codebase.Presenters.MainMenu;
 using GamePush;
 using System.Collections.Generic;
@@ -73,7 +74,8 @@ namespace Assets.Codebase.Infrastructure.Initialization
             {
                 new ExamplePresenter(),
                 new MainMenuPresenter(),
-                new EndgamePresenter()
+                new EndgamePresenter(),
+                new FailPresenter()
             };
 
             foreach (var presenter in _presenters)

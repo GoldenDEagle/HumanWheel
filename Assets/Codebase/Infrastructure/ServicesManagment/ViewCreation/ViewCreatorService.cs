@@ -19,9 +19,10 @@ namespace Assets.Codebase.Infrastructure.ServicesManagment.ViewCreation
         private RectTransform _uiRoot;
 
         // Paths to all view prefabs
-        private const string ExampleViewPathPath = "Views/ExampleView";
-        private const string MainMenuViewPathPath = "Views/MainMenuView";
-        private const string EndgameViewPathPath = "Views/EndgameView";
+        private const string ExampleViewPath = "Views/ExampleView";
+        private const string MainMenuViewPath = "Views/MainMenuView";
+        private const string EndgameViewPath = "Views/EndgameView";
+        private const string FailViewPath = "Views/FailView";
 
         private IAssetProvider _assets;
 
@@ -50,13 +51,16 @@ namespace Assets.Codebase.Infrastructure.ServicesManagment.ViewCreation
                     new System.ArgumentException(nameof(viewId));
                     break;
                 case ViewId.ExampleView:
-                    path = ExampleViewPathPath;
+                    path = ExampleViewPath;
                     break;
                 case ViewId.MainMenuView:
-                    path = MainMenuViewPathPath;
+                    path = MainMenuViewPath;
                     break;
                 case ViewId.EndgameView:
-                    path = EndgameViewPathPath;
+                    path = EndgameViewPath;
+                    break;
+                case ViewId.FailView:
+                    path = FailViewPath;
                     break;
                 default:
                     throw new System.ArgumentException(nameof(viewId));

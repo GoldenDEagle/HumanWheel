@@ -1,4 +1,7 @@
-﻿using Assets.Codebase.Mechanics.Units;
+﻿using Assets.Codebase.Infrastructure.ServicesManagment;
+using Assets.Codebase.Infrastructure.ServicesManagment.ModelAccess;
+using Assets.Codebase.Mechanics.Units;
+using Assets.Codebase.Views.Base;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -133,6 +136,12 @@ namespace Assets.Codebase.Mechanics.Controller
             _allUnitsLost = true;
             _rigidBody.useGravity = false;
             _rigidBody.velocity = Vector3.zero;
+
+            // Rework
+            if (!_isFinished)
+            {
+                ServiceLocator.Container.Single<IModelAccesService>().GameplayModel.ActivateView(ViewId.FailView);
+            }
         }
 
         private void UpdateWheelSize(float newRadius)
