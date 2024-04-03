@@ -20,8 +20,8 @@ namespace Assets.Codebase.Mechanics.Controller
 
         private void Awake()
         {
-            WheelCollider = GetComponent<WheelCollider>();
-            WheelCollider.ConfigureVehicleSubsteps(5, 12, 15);
+            //WheelCollider = GetComponent<WheelCollider>();
+            //WheelCollider.ConfigureVehicleSubsteps(5, 12, 15);
         }
 
         // Update is called once per frame
@@ -29,9 +29,9 @@ namespace Assets.Codebase.Mechanics.Controller
         {
             // Get the Wheel collider's world pose values and
             // use them to set the wheel model's position and rotation
-            WheelCollider.GetWorldPose(out position, out rotation);
-            _wheelModel.transform.position = position;
-            _wheelModel.transform.rotation = rotation;
+            //WheelCollider.GetWorldPose(out position, out rotation);
+            //_wheelModel.transform.position = position;
+            //_wheelModel.transform.rotation = rotation;
         }
     }
 }

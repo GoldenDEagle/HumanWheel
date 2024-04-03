@@ -2,6 +2,7 @@
 using Assets.Codebase.Infrastructure.ServicesManagment.ModelAccess;
 using Assets.Codebase.Mechanics.Units;
 using Assets.Codebase.Views.Base;
+using Cysharp.Threading.Tasks.Triggers;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,6 +21,9 @@ namespace Assets.Codebase.Mechanics.Controller
         public float steerLerpSpeed = 10f;
 
         [Header("Gameplay mechanics params")]
+        [SerializeField] private float _forwardSpeed = 1f;
+        [SerializeField] private float _sidePositionLerpSpeed = 1f;
+        [SerializeField] private float _xLimit = 9f;
         [SerializeField] private float _wallBoostStrength = 5000f;
         [SerializeField] private float _jumpForce = 2500f;
 
@@ -146,7 +150,7 @@ namespace Assets.Codebase.Mechanics.Controller
 
         private void UpdateWheelSize(float newRadius)
         {
-            _wheel.WheelCollider.radius = newRadius + 0.5f;
+            //_wheel.WheelCollider.radius = newRadius + 0.5f;
             //transform.position = new Vector3(transform.position.x, newRadius, transform.position.z);
             _collider.center = new Vector3(0f, -newRadius, 0f);
             _collider.size = new Vector3(_collider.size.x, newRadius + 1, newRadius + 1);
@@ -178,6 +182,13 @@ namespace Assets.Codebase.Mechanics.Controller
             }
 
             hInput = _direction.x;
+
+            var targetX = _direction.x * _xLimit;
+            
+            var newX = Mathf.MoveTowards(_rigidBody.position.x, targetX, _sidePositionLerpSpeed * Time.deltaTime);
+            //_rigidBody.position = new Vector3(_rigidBody.position.x, _rigidBody.position.y, _rigidBody.position.z);
+            _rigidBody.MovePosition(new Vector3(newX, _rigidBody.position.y, _rigidBody.position.z + _forwardSpeed * Time.deltaTime));
+            return;
 
             // Calculate current speed in relation to the forward direction of the car
             // (this returns a negative number when traveling backwards)
