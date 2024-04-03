@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.WebSockets;
 using System.Xml.Xsl;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets.Codebase.Mechanics.Units
@@ -9,7 +10,12 @@ namespace Assets.Codebase.Mechanics.Units
     public class UnitContainer : MonoBehaviour
     {
         [SerializeField] private List<Unit> _units;
+        [SerializeField] private Transform _humanCircle;
+        [SerializeField] private float _maxTiltAngle = 30f;
+        [SerializeField] private float _tiltLerpSpeed = 10f;
 
+        private float _wheelForwardSpeed = 0f;
+        private float _currentSideInput = 0f;
         private float _radius;
         public float Radius => _radius;
 
@@ -17,6 +23,7 @@ namespace Assets.Codebase.Mechanics.Units
 
         public void AddUnit(Unit newUnit)
         {
+            newUnit.transform.SetParent(_humanCircle);
             _units.Add(newUnit);
             AllignUnits();
         }
@@ -80,7 +87,39 @@ namespace Assets.Codebase.Mechanics.Units
                 //_units[i].transform.Rotate(-20f, 0f, 0f);
             }
         }
+
+        private void Update()
+        {
+            var rotationSpeedRad = _wheelForwardSpeed / _radius;
+            var rotationSpeedDegrees = rotationSpeedRad * 57.3f;
+
+            // Rotate around X axis
+            _humanCircle.Rotate(Vector3.right, Time.deltaTime * rotationSpeedDegrees);
+
+            // Rotate around Z axis
+            var targetRotation = Quaternion.Euler(0f, 0f, -_currentSideInput * _maxTiltAngle);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _tiltLerpSpeed * Time.deltaTime);
+        }
+
+        public void UpdateWheelSpeed(float forwardSpeed)
+        {
+            _wheelForwardSpeed = forwardSpeed;
+        }
+
+        public void SetInputDirection(float sideInput)
+        {
+            _currentSideInput = sideInput;
+        }
+
+
+
+        private float WrapAngle(float angle)
+        {
+            angle %= 360;
+            if (angle > 180)
+                return angle - 360;
+
+            return angle;
+        }
     }
-
-
 }

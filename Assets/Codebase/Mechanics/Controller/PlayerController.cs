@@ -12,28 +12,21 @@ namespace Assets.Codebase.Mechanics.Controller
     public class PlayerController : MonoBehaviour
     {
         [Header("Wheel parameters")]
-        public float motorTorque = 2000;
-        public float brakeTorque = 2000;
-        public float maxSpeed = 20;
-        public float steeringRange = 30;
-        public float steeringRangeAtMaxSpeed = 10;
-        public float centreOfGravityOffset = -1f;
-        public float steerLerpSpeed = 10f;
+        [SerializeField] private float _maxSpeed = 10f;
+        [SerializeField] private float _acceleration = 5f;
+        [SerializeField] private float _sideAcceleration = 5f;
 
         [Header("Gameplay mechanics params")]
-        [SerializeField] private float _forwardSpeed = 1f;
-        [SerializeField] private float _sidePositionLerpSpeed = 1f;
-        [SerializeField] private float _xLimit = 9f;
         [SerializeField] private float _wallBoostStrength = 5000f;
         [SerializeField] private float _jumpForce = 2500f;
 
         [Header("References")]
         [SerializeField] private UnitContainer _unitContainer;
 
-        private WheelController _wheel;
         private Rigidbody _rigidBody;
         private Vector2 _direction;
-        private BoxCollider _collider;
+        private BoxCollider _triggerCollider;
+        private CapsuleCollider _rbCollider;
 
         private bool _tapIsActive = false;
         private bool _isOnTheWall = false;
@@ -44,15 +37,10 @@ namespace Assets.Codebase.Mechanics.Controller
 
         private void Awake()
         {
-            _collider = GetComponent<BoxCollider>();
+            _triggerCollider = GetComponent<BoxCollider>();
+            _rbCollider = GetComponent<CapsuleCollider>();
 
             _rigidBody = GetComponent<Rigidbody>();
-
-            // Adjust center of mass vertically, to help prevent the car from rolling
-            _rigidBody.centerOfMass += Vector3.up * centreOfGravityOffset;
-
-            // Find all child GameObjects that have the WheelControl script attached
-            _wheel = GetComponentInChildren<WheelController>();
         }
 
         void Start()
@@ -94,7 +82,6 @@ namespace Assets.Codebase.Mechanics.Controller
 
         public void AttachNewUnit(Unit unit)
         {
-            unit.transform.SetParent(_unitContainer.transform);
             _unitContainer.AddUnit(unit);
             UpdateWheelSize(_unitContainer.Radius);
         }
@@ -102,6 +89,12 @@ namespace Assets.Codebase.Mechanics.Controller
         public Unit GrabAUnit()
         {
             var unit = _unitContainer.RemoveUnit();
+
+            if (_isFinished)
+            {
+                return unit;
+            }
+
             UpdateWheelSize(_unitContainer.Radius);
             return unit;
         }
@@ -150,28 +143,17 @@ namespace Assets.Codebase.Mechanics.Controller
 
         private void UpdateWheelSize(float newRadius)
         {
-            //_wheel.WheelCollider.radius = newRadius + 0.5f;
             //transform.position = new Vector3(transform.position.x, newRadius, transform.position.z);
-            _collider.center = new Vector3(0f, -newRadius, 0f);
-            _collider.size = new Vector3(_collider.size.x, newRadius + 1, newRadius + 1);
+            _rbCollider.center = new Vector3(0f, -newRadius, 0f);
+
+            _triggerCollider.center = new Vector3(0f, -newRadius, 0f);
+            _triggerCollider.size = new Vector3(_triggerCollider.size.x, newRadius + 1, newRadius + 1);
         }
 
 
         // Update is called once per frame
         void Update()
         {
-            if (_allUnitsLost) return;
-
-            if (_isOnTheWall)
-            {
-                _rigidBody.velocity = new Vector3(0f, 10f, 0.5f);
-                _wheel.WheelCollider.rotationSpeed = 90f;
-                return;
-            }
-
-            float vInput = 1f;
-            float hInput;
-
             if (_tapIsActive)
             {
                 SetDirectionBasedOnPointer();
@@ -181,62 +163,37 @@ namespace Assets.Codebase.Mechanics.Controller
                 SetDirection(Vector2.zero);
             }
 
-            hInput = _direction.x;
+            _unitContainer.SetInputDirection(_direction.x);
+        }
 
-            var targetX = _direction.x * _xLimit;
-            
-            var newX = Mathf.MoveTowards(_rigidBody.position.x, targetX, _sidePositionLerpSpeed * Time.deltaTime);
-            //_rigidBody.position = new Vector3(_rigidBody.position.x, _rigidBody.position.y, _rigidBody.position.z);
-            _rigidBody.MovePosition(new Vector3(newX, _rigidBody.position.y, _rigidBody.position.z + _forwardSpeed * Time.deltaTime));
-            return;
+        private void FixedUpdate()
+        {
+            if (_allUnitsLost) return;
 
-            // Calculate current speed in relation to the forward direction of the car
-            // (this returns a negative number when traveling backwards)
-            float forwardSpeed = Vector3.Dot(transform.forward, _rigidBody.velocity);
-
-
-            // Calculate how close the car is to top speed
-            // as a number from zero to one
-            float speedFactor = Mathf.InverseLerp(0, maxSpeed, forwardSpeed);
-
-            // Use that to calculate how much torque is available 
-            // (zero torque at top speed)
-            float currentMotorTorque = Mathf.Lerp(motorTorque, 0, speedFactor);
-
-            // …and to calculate how much to steer 
-            // (the car steers more gently at top speed)
-            float currentSteerRange = Mathf.Lerp(steeringRange, steeringRangeAtMaxSpeed, speedFactor);
-
-            // Check whether the user input is in the same direction 
-            // as the car's velocity
-            bool isAccelerating = Mathf.Sign(vInput) == Mathf.Sign(forwardSpeed);
-
-
-            // Apply steering to Wheel colliders that have "Steerable" enabled
-            if (_wheel.steerable)
+            // Logic for climbing walls
+            if (_isOnTheWall)
             {
-                var currentSteer = _wheel.WheelCollider.steerAngle;
-                var targetSteer = hInput * currentSteerRange;
-                _wheel.WheelCollider.steerAngle = Mathf.Lerp(currentSteer, targetSteer, Time.deltaTime * steerLerpSpeed);
-                //_wheel.WheelCollider.steerAngle = hInput * currentSteerRange;
+                _rigidBody.velocity = new Vector3(0f, 10f, 0.5f);
+                return;
             }
 
-            if (isAccelerating)
+            // Constant forward movement
+            if (_rigidBody.velocity.z <= _maxSpeed)
             {
-                // Apply torque to Wheel colliders that have "Motorized" enabled
-                if (_wheel.motorized)
-                {
-                    _wheel.WheelCollider.motorTorque = vInput * currentMotorTorque;
-                }
-                _wheel.WheelCollider.brakeTorque = 0;
+                _rigidBody.AddForce(Vector3.forward * _acceleration);
             }
-            else
+
+            // Side movement
+            _rigidBody.AddForce(Vector3.right * _direction.x * _sideAcceleration);
+
+            // Prevent inertional side movement
+            if (_direction.x == 0f)
             {
-                // If the user is trying to go in the opposite direction
-                // apply brakes to all wheels
-                _wheel.WheelCollider.brakeTorque = Mathf.Abs(vInput) * brakeTorque;
-                _wheel.WheelCollider.motorTorque = 0;
+                _rigidBody.velocity = new Vector3(0f, _rigidBody.velocity.y, _rigidBody.velocity.z);
             }
+
+            // Set radial rotation speed
+            _unitContainer.UpdateWheelSpeed(_rigidBody.velocity.z);
         }
     }
 }
