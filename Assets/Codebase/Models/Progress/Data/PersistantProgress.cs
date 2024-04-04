@@ -9,14 +9,16 @@ namespace Assets.Codebase.Models.Progress.Data
     public class PersistantProgress
     {
         // All the same properties as ReactiveProgress, but Serializable
-        public int SampleValue;
+        public int CurrentLevel;
+        public int TotalCoins;
         public float MusicVolume;
         public float SFXVolume;
 
         public void SetValues(SessionProgress progress)
         {
             // Fill all properties
-            SampleValue = progress.SampleValue.Value;
+            CurrentLevel = progress.CurrentLevel.Value;
+            TotalCoins = progress.TotalCoins.Value;
             MusicVolume = progress.MusicVolume.Value;
             SFXVolume = progress.SFXVolume.Value;
         }

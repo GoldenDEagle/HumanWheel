@@ -1,4 +1,5 @@
 ﻿using Assets.Codebase.Presenters.Base;
+using Assets.Codebase.Utils.Values;
 using Assets.Codebase.Views.Base;
 
 namespace Assets.Codebase.Presenters.MainMenu
@@ -12,7 +13,7 @@ namespace Assets.Codebase.Presenters.MainMenu
 
         public void StartButtonClicked()
         {
-            GameplayModel.LoadScene("Game", () => GameplayModel.ActivateView(ViewId.IngameView));
+            GameplayModel.LoadScene(SceneNames.GAME, () => GameplayModel.ActivateView(ViewId.IngameView));
         }
     }
 }

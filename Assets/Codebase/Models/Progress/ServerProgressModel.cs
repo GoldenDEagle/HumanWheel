@@ -1,22 +1,24 @@
 ﻿using Assets.Codebase.Models.Base;
 using Assets.Codebase.Models.Progress.Data;
 using Assets.Codebase.Utils.Extensions;
-using UnityEngine;
+using GamePush;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Assets.Codebase.Models.Progress
 {
-    /// <summary>
-    /// Model for local saving case (PlayerPrefs).
-    /// </summary>
-    public class LocalProgressModel : BaseModel, IProgressModel
+    public class ServerProgressModel : BaseModel, IProgressModel
     {
         private const string ProgressKey = "Progress";
-
         public SessionProgress SessionProgress { get; private set; }
 
         private PersistantProgress _persistantProgress;
 
-        public LocalProgressModel()
+
+        public ServerProgressModel()
         {
             LoadProgress();
         }
@@ -27,7 +29,17 @@ namespace Assets.Codebase.Models.Progress
 
         protected bool CanFindSave()
         {
-            return PlayerPrefs.HasKey(ProgressKey);
+            GP_Player.Sync();
+            if (GP_Player.Has(ProgressKey))
+            {
+                if (GP_Player.GetString(ProgressKey) == string.Empty)
+                {
+                    return false;
+                }
+                return true;
+            }
+
+            return false;
         }
 
         protected void CreateNewProgress()
@@ -44,14 +56,15 @@ namespace Assets.Codebase.Models.Progress
             }
 
             _persistantProgress.SetValues(SessionProgress);
-            PlayerPrefs.SetString(ProgressKey, _persistantProgress.ToJson());
+            GP_Player.Set(ProgressKey, _persistantProgress.ToJson());
+            GP_Player.Sync(true);
         }
 
         public void LoadProgress()
         {
             if (CanFindSave())
             {
-                GetProgressFromPrefs();
+                GetProgressFromServer();
             }
             else
             {
@@ -59,11 +72,12 @@ namespace Assets.Codebase.Models.Progress
             }
         }
 
-        private void GetProgressFromPrefs()
+        private void GetProgressFromServer()
         {
-            var progress = PlayerPrefs.GetString(ProgressKey).ToDeserealized<PersistantProgress>();
+            var progress = GP_Player.GetString(ProgressKey).ToDeserealized<PersistantProgress>();
             SessionProgress = new SessionProgress(progress);
         }
+
 
 
         //// GAME SPECIFIC

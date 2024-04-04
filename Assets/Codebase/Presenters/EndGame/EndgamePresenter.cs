@@ -37,11 +37,13 @@ namespace Assets.Codebase.Presenters.EndGame
 
         public void QuitClicked()
         {
+            ClosingActions();
             GameplayModel.LoadScene(SceneNames.MAIN_MENU, () => { GameplayModel.ActivateView(ViewId.MainMenuView); });
         }
 
         public void ContinueClicked()
         {
+            ClosingActions();
             GameplayModel.LoadScene(SceneNames.GAME, () => { GameplayModel.ActivateView(ViewId.None); });
         }
 
@@ -50,6 +52,13 @@ namespace Assets.Codebase.Presenters.EndGame
 
 
         ///// INTERNAL
+
+        private void ClosingActions()
+        {
+            ProgressModel.ModifyTotalCoins(GameplayModel.CurrentRunCoins.Value);
+            ProgressModel.CompleteLevel();
+            ProgressModel.SaveProgress();
+        }
 
         private void PrettyCoinIncrease(int initialCoinValue, float coinMultiplier)
         {

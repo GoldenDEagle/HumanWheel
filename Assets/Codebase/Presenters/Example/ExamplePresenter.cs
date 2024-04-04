@@ -29,7 +29,6 @@ namespace Assets.Codebase.Presenters.Example
         {
             base.SubscribeToModelChanges();
             // Subscribe to each model parameter of interest
-            ProgressModel.SessionProgress.SampleValue.Subscribe(OnSampleValueChanged).AddTo(CompositeDisposable);
         }
 
         private void OnSampleValueChanged(int newGoldAmount)
@@ -47,8 +46,6 @@ namespace Assets.Codebase.Presenters.Example
             {
                 StartButtonText.Value = StartText;
             }
-
-            ProgressModel.SessionProgress.SampleValue.Value++;
         }
     }
 }

@@ -9,7 +9,8 @@ namespace Assets.Codebase.Models.Progress.Data
     {
         // All the properties that need to be saved...
 
-        public ReactiveProperty<int> SampleValue;
+        public ReactiveProperty<int> CurrentLevel;
+        public ReactiveProperty<int> TotalCoins;
         public ReactiveProperty<float> MusicVolume;
         public ReactiveProperty<float> SFXVolume;
 
@@ -20,7 +21,8 @@ namespace Assets.Codebase.Models.Progress.Data
         /// </summary>
         public SessionProgress()
         {
-            SampleValue = new ReactiveProperty<int>(0);
+            CurrentLevel = new ReactiveProperty<int>(1);
+            TotalCoins = new ReactiveProperty<int>(0);
             MusicVolume = new ReactiveProperty<float>(0.5f);
             SFXVolume = new ReactiveProperty<float>(0.5f);
         }
@@ -31,7 +33,8 @@ namespace Assets.Codebase.Models.Progress.Data
         /// <param name="progress"></param> Progress to initialize from
         public SessionProgress(PersistantProgress progress)
         {
-            SampleValue = new ReactiveProperty<int>(progress.SampleValue);
+            CurrentLevel = new ReactiveProperty<int>(progress.CurrentLevel);
+            TotalCoins = new ReactiveProperty<int>(progress.TotalCoins);
             MusicVolume = new ReactiveProperty<float>();
             SFXVolume = new ReactiveProperty<float>();
         }

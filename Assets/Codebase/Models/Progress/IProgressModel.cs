@@ -22,5 +22,11 @@ namespace Assets.Codebase.Models.Progress
         /// Loads data from saving place.
         /// </summary>
         public void LoadProgress();
+
+
+        /// GAME SPECIFIC
+
+        public void ModifyTotalCoins(int coinDelta);
+        public void CompleteLevel();
     }
 }
