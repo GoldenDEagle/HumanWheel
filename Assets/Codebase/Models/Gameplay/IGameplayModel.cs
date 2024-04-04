@@ -39,17 +39,24 @@ namespace Assets.Codebase.Models.Gameplay
         // RUN INFO
 
         public ReactiveProperty<int> CurrentRunCoins { get; }
+        public ReactiveProperty<int> CollectedHumans { get; }
+
+        /// <summary>
+        /// Set humans collected during the run
+        /// </summary>
+        /// <param name="humanCount"></param>
+        public void SetCollectedHumansCount(int humanCount);
 
         /// <summary>
         /// Adds delta coins
         /// </summary>
         /// <param name="deltaCoins"></param>
-        public void ModifyRunCoinAmount(int deltaCoins);
+        public int ModifyRunCoinAmount(int deltaCoins);
 
         /// <summary>
         /// Multiplies current run coin amount
         /// </summary>
         /// <param name="multiplier"></param>
-        public void MultiplyRunCoinAmount(int multiplier);
+        public int MultiplyRunCoinAmount(float multiplier);
     }
 }

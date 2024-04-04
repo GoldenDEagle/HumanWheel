@@ -17,9 +17,12 @@ namespace CodeBase.RaceElements
 
         private Collider _collider;
 
+        private IModelAccesService _modelAccesService;
+
         private void Awake()
         {
             _collider = GetComponent<BoxCollider>();
+            _modelAccesService = ServiceLocator.Container.Single<IModelAccesService>();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -54,8 +57,11 @@ namespace CodeBase.RaceElements
                 }
             }
 
-            Debug.Log("GAME SCORE: " + humanCount);
-            ServiceLocator.Container.Single<IModelAccesService>().GameplayModel.ActivateView(ViewId.EndgameView);
+            // Trigger end game logic
+            _modelAccesService.GameplayModel.SetCollectedHumansCount(humanCount);
+
+            // Activate winning view
+            _modelAccesService.GameplayModel.ActivateView(ViewId.EndgameView);
         }
     }
 }

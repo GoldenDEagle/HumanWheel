@@ -24,6 +24,8 @@ namespace Assets.Codebase.Models.Gameplay
         // Current run info
         private ReactiveProperty<int> _currentRunCoins;
         public ReactiveProperty<int> CurrentRunCoins => _currentRunCoins;
+        private ReactiveProperty<int> _collectedHumans;
+        public ReactiveProperty<int> CollectedHumans => _collectedHumans;
 
         public GameplayModel()
         {
@@ -32,6 +34,7 @@ namespace Assets.Codebase.Models.Gameplay
             _state = new ReactiveProperty<GameState>(GameState.None);
             _activeViewId = new ReactiveProperty<ViewId>(ViewId.None);
             _currentRunCoins = new ReactiveProperty<int>(0);
+            _collectedHumans = new ReactiveProperty<int>(0);
 
             _onViewClosed = new Subject<ViewId>();
         }
@@ -62,14 +65,22 @@ namespace Assets.Codebase.Models.Gameplay
 
         // RUN MANIPULATIONS
 
-        public void ModifyRunCoinAmount(int deltaCoins)
+        public void SetCollectedHumansCount(int humanCount)
         {
-            _currentRunCoins.Value += deltaCoins;
+            _collectedHumans.Value = humanCount;
         }
 
-        public void MultiplyRunCoinAmount(int multiplier)
+        public int ModifyRunCoinAmount(int deltaCoins)
         {
-            _currentRunCoins.Value *= multiplier;
+            _currentRunCoins.Value += deltaCoins;
+            return _currentRunCoins.Value;
+        }
+
+        public int MultiplyRunCoinAmount(float multiplier)
+        {
+            var newCoinAmount = Convert.ToInt32(_currentRunCoins.Value * multiplier);
+            _currentRunCoins.Value = newCoinAmount;
+            return _currentRunCoins.Value;
         }
     }
 }
