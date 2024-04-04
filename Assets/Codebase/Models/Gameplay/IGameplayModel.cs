@@ -25,10 +25,31 @@ namespace Assets.Codebase.Models.Gameplay
         /// </summary>
         /// <param name="viewId"></param>
         public void ActivateView(ViewId viewId);
+        /// <summary>
+        /// Current game state
+        /// </summary>
         public ReactiveProperty<GameState> State { get; }
 
         public void ChangeGameState(GameState state);
 
         public void LoadScene(string name, Action onLoaded = null);
+
+
+
+        // RUN INFO
+
+        public ReactiveProperty<int> CurrentRunCoins { get; }
+
+        /// <summary>
+        /// Adds delta coins
+        /// </summary>
+        /// <param name="deltaCoins"></param>
+        public void ModifyRunCoinAmount(int deltaCoins);
+
+        /// <summary>
+        /// Multiplies current run coin amount
+        /// </summary>
+        /// <param name="multiplier"></param>
+        public void MultiplyRunCoinAmount(int multiplier);
     }
 }

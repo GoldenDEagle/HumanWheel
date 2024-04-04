@@ -1,6 +1,8 @@
 ﻿using Assets.Codebase.Presenter.Base;
 using Assets.Codebase.Presenters.EndGame;
+using Assets.Codebase.Utils.Extensions;
 using Assets.Codebase.Views.Base;
+using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +11,7 @@ namespace Assets.Codebase.Views.EndGame
 {
     public class EndgameView : BaseView
     {
+        [SerializeField] private TMP_Text _collectedCoinsText;
         [SerializeField] private Button _continueButton;
         [SerializeField] private Button _quitButton;
 
@@ -19,6 +22,12 @@ namespace Assets.Codebase.Views.EndGame
             _presenter = presenter as IEndgamePresenter;
 
             base.Init(_presenter);
+        }
+
+        protected override void SubscribeToPresenterEvents()
+        {
+            base.SubscribeToPresenterEvents();
+            _presenter.CollectedCoinsString.SubscribeToTMPText(_collectedCoinsText).AddTo(CompositeDisposable);
         }
 
         protected override void SubscribeToUserInput()

@@ -21,11 +21,18 @@ namespace Assets.Codebase.Models.Gameplay
         public ReactiveProperty<ViewId> ActiveViewId => _activeViewId;
         public Subject<ViewId> OnViewClosed => _onViewClosed;
 
+        // Current run info
+        private ReactiveProperty<int> _currentRunCoins;
+        public ReactiveProperty<int> CurrentRunCoins => _currentRunCoins;
+
         public GameplayModel()
         {
             _sceneLoader = new SceneLoader();
+
             _state = new ReactiveProperty<GameState>(GameState.None);
             _activeViewId = new ReactiveProperty<ViewId>(ViewId.None);
+            _currentRunCoins = new ReactiveProperty<int>(0);
+
             _onViewClosed = new Subject<ViewId>();
         }
 
@@ -50,6 +57,19 @@ namespace Assets.Codebase.Models.Gameplay
         public void LoadScene(string name, Action onLoaded = null)
         {
             _sceneLoader.Load(name, onLoaded);
+        }
+
+
+        // RUN MANIPULATIONS
+
+        public void ModifyRunCoinAmount(int deltaCoins)
+        {
+            _currentRunCoins.Value += deltaCoins;
+        }
+
+        public void MultiplyRunCoinAmount(int multiplier)
+        {
+            _currentRunCoins.Value *= multiplier;
         }
     }
 }
