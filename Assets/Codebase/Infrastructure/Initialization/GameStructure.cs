@@ -2,6 +2,7 @@
 using Assets.Codebase.Infrastructure.ServicesManagment.Ads;
 using Assets.Codebase.Infrastructure.ServicesManagment.Assets;
 using Assets.Codebase.Infrastructure.ServicesManagment.Audio;
+using Assets.Codebase.Infrastructure.ServicesManagment.Factories;
 using Assets.Codebase.Infrastructure.ServicesManagment.Localization;
 using Assets.Codebase.Infrastructure.ServicesManagment.ModelAccess;
 using Assets.Codebase.Infrastructure.ServicesManagment.PresenterManagement;
@@ -101,6 +102,7 @@ namespace Assets.Codebase.Infrastructure.Initialization
             services.RegisterSingle<ILocalizationService>(new GoogleSheetLocalizationService());
             services.RegisterSingle<IPresentersService>(new PresentersService(_presenters));
             services.RegisterSingle<IModelAccesService>(new ModelAccessService(_progressModel, _gameplayModel));
+            services.RegisterSingle<ICollectablesFactory>(new CollectablesFactory(services.Single<IAssetProvider>()));
         }
 
 

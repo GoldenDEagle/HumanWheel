@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 084b3ccb74b9f0a47b8c5c809ac9ee7f, type: 3}
   m_Name: Level 2
   m_EditorClassIdentifier: 
+  _minLevelCoins: 10
+  _maxLevelCoins: 60
   _enabled: 1
   _pathGenerator: {fileID: 11400000, guid: c1b94ebf48f834a43b90a4801c63e99f, type: 2}
   _sequenceCollection:

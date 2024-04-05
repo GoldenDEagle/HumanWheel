@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Assets.Codebase.Mechanics.Units
 {
     [RequireComponent(typeof(Collider))]
-    public class Unit : MonoBehaviour
+    public class HumanUnit : MonoBehaviour
     {
         [SerializeField] private bool _isConnected;
 

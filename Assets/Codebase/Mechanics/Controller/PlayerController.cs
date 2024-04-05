@@ -80,13 +80,13 @@ namespace Assets.Codebase.Mechanics.Controller
             _tapIsActive = status;
         }
 
-        public void AttachNewUnit(Unit unit)
+        public void AttachNewUnit(HumanUnit unit)
         {
             _unitContainer.AddUnit(unit);
             UpdateWheelSize(_unitContainer.Radius);
         }
 
-        public Unit GrabAUnit()
+        public HumanUnit GrabAUnit()
         {
             var unit = _unitContainer.RemoveUnit();
 

@@ -23,6 +23,7 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
         private List<LevelSegment> _generatedSegments = new List<LevelSegment>();
 
         private float _progress;
+        private int _levelCoinCount = 0;
 
         public float Progress => _progress;
         public ForeverLevel Level { get => _level; set => _level = value; }
@@ -83,6 +84,8 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
         }
         public void Generate()
         {
+            _levelCoinCount = _level.GetLevelNumberOfCoins();
+
             foreach (var segment in _generatedSegments)
             {
                 Destroy(segment.gameObject);
@@ -96,6 +99,7 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
         {
             Vector3 lastPos = Vector3.zero;
             int totalSergments = _selectedSegments.Count;
+            int coinsPerSegment = _levelCoinCount / totalSergments;
 
             foreach (var segment in _selectedSegments)
             {
@@ -111,6 +115,12 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
                     levelSegment.InvokeOnExtruded();
                     lastPos = levelSegment.customExit.position;
                     _generatedSegments.Add(levelSegment);
+
+                    // Place humans and coins on segment
+                    if (instantiated.TryGetComponent<LevelSegmentExtension>(out var segmentExtension))
+                    {
+                        segmentExtension.ConfigureCollectables(coinsPerSegment);
+                    }
                 }
                 else
                 {

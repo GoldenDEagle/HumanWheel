@@ -8,6 +8,10 @@
     public class ForeverLevel : ScriptableObject
     {
         [SerializeField]
+        private int _minLevelCoins = 0;
+        [SerializeField]
+        private int _maxLevelCoins = 1;
+        [SerializeField]
         private bool _enabled = true;
         [SerializeField]
         private LevelPathGenerator _pathGenerator;
@@ -213,6 +217,12 @@
                 }
             }
             return null;
+        }
+
+        public int GetLevelNumberOfCoins()
+        {
+            int coins = Random.Range(_minLevelCoins, _maxLevelCoins + 1);
+            return coins;
         }
     }
 }

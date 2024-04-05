@@ -9,7 +9,7 @@ namespace Assets.Codebase.Mechanics.Units
 {
     public class UnitContainer : MonoBehaviour
     {
-        [SerializeField] private List<Unit> _units;
+        [SerializeField] private List<HumanUnit> _units;
         [SerializeField] private Transform _humanCircle;
         [SerializeField] private float _maxTiltAngle = 30f;
         [SerializeField] private float _tiltLerpSpeed = 10f;
@@ -21,14 +21,14 @@ namespace Assets.Codebase.Mechanics.Units
 
         public event Action OnAllUnitsLost;
 
-        public void AddUnit(Unit newUnit)
+        public void AddUnit(HumanUnit newUnit)
         {
             newUnit.transform.SetParent(_humanCircle);
             _units.Add(newUnit);
             AllignUnits();
         }
 
-        public Unit RemoveUnit()
+        public HumanUnit RemoveUnit()
         {
             // If no units left
             if (_units.Count < 1)
