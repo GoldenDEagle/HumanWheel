@@ -5,6 +5,8 @@ namespace Assets.Codebase.Presenters.EndGame
 {
     public interface IEndgamePresenter : IPresenter
     {
+        public ReactiveProperty<string> ClearedLevelString { get; }
+        public ReactiveProperty<string> TotalCoinsString { get; }
         public ReactiveProperty<string> CollectedCoinsString { get; }
 
         public void ContinueClicked();

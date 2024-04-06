@@ -55,7 +55,7 @@ namespace Assets.Codebase.Mechanics.Units
         [ContextMenu("Allign")]
         public void AllignUnits()
         {
-            _radius = _units.Count - 0.6f * _units.Count;
+            _radius = _units.Count - 0.65f * _units.Count;
 
             int numberOfObjects = _units.Count;
             float angleStep = 360.0f / numberOfObjects;

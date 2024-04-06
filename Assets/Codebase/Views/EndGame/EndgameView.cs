@@ -11,7 +11,9 @@ namespace Assets.Codebase.Views.EndGame
 {
     public class EndgameView : BaseView
     {
+        [SerializeField] private TMP_Text _totalCoinsText;
         [SerializeField] private TMP_Text _collectedCoinsText;
+        [SerializeField] private TMP_Text _clearedLevelText;
         [SerializeField] private Button _continueButton;
         [SerializeField] private Button _quitButton;
 
@@ -28,6 +30,8 @@ namespace Assets.Codebase.Views.EndGame
         {
             base.SubscribeToPresenterEvents();
             _presenter.CollectedCoinsString.SubscribeToTMPText(_collectedCoinsText).AddTo(CompositeDisposable);
+            _presenter.TotalCoinsString.SubscribeToTMPText(_totalCoinsText).AddTo(CompositeDisposable);
+            _presenter.ClearedLevelString.SubscribeToTMPText(_clearedLevelText).AddTo(CompositeDisposable);
         }
 
         protected override void SubscribeToUserInput()

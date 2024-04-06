@@ -9,6 +9,8 @@ namespace Assets.Codebase.Presenters.EndGame
 {
     public class EndgamePresenter : BasePresenter, IEndgamePresenter
     {
+        public ReactiveProperty<string> ClearedLevelString { get; private set; }
+        public ReactiveProperty<string> TotalCoinsString { get; private set; }
         public ReactiveProperty<string> CollectedCoinsString { get; private set; }
 
         private int _coinAnimationStep = 100;
@@ -17,6 +19,8 @@ namespace Assets.Codebase.Presenters.EndGame
         {
             CorrespondingViewId = ViewId.EndgameView;
 
+            ClearedLevelString = new ReactiveProperty<string>();
+            TotalCoinsString = new ReactiveProperty<string>();
             CollectedCoinsString = new ReactiveProperty<string>();
         }
 
@@ -24,6 +28,7 @@ namespace Assets.Codebase.Presenters.EndGame
         {
             base.CreateView();
             CollectedCoinsString.Value = GameplayModel.CurrentRunCoins.Value.ToString();
+            ClearedLevelString.Value = "CLEARED LEVEL " + ProgressModel.SessionProgress.CurrentLevel.ToString();
 
             // Multiply coins based on human count
             var coinMultiplier = 1 + (GameplayModel.CollectedHumans.Value - 1) * 0.1f;
@@ -33,6 +38,7 @@ namespace Assets.Codebase.Presenters.EndGame
         protected override void SubscribeToModelChanges()
         {
             base.SubscribeToModelChanges();
+            ProgressModel.SessionProgress.TotalCoins.Subscribe(value => TotalCoinsString.Value = "TOTAL COINS: " + value).AddTo(CompositeDisposable);
         }
 
         public void QuitClicked()
@@ -44,7 +50,7 @@ namespace Assets.Codebase.Presenters.EndGame
         public void ContinueClicked()
         {
             ClosingActions();
-            GameplayModel.LoadScene(SceneNames.GAME, () => { GameplayModel.ActivateView(ViewId.None); });
+            GameplayModel.LoadScene(SceneNames.GAME, () => { GameplayModel.ActivateView(ViewId.IngameView); });
         }
 
 
@@ -70,13 +76,13 @@ namespace Assets.Codebase.Presenters.EndGame
         private async UniTaskVoid AnimateCoinIncrease(int startingValue, int endingValue)
         {
             int value = startingValue;
-            CollectedCoinsString.Value = value.ToString();
+            CollectedCoinsString.Value = "COLLECTED COINS: " + value.ToString();
 
             while (value < endingValue)
             {
                 await UniTask.Delay(_coinAnimationStep);
                 value++;
-                CollectedCoinsString.Value = value.ToString();
+                CollectedCoinsString.Value = "COLLECTED COINS: " + value.ToString();
             }
         }
     }

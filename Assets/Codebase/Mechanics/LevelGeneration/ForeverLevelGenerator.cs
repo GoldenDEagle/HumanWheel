@@ -1,4 +1,7 @@
-﻿using Assets.Codebase.Mechanics.Controller;
+﻿using Assets.Codebase.Infrastructure.ServicesManagment;
+using Assets.Codebase.Infrastructure.ServicesManagment.Assets;
+using Assets.Codebase.Infrastructure.ServicesManagment.ModelAccess;
+using Assets.Codebase.Mechanics.Controller;
 using Dreamteck.Forever;
 using System;
 using System.Collections;
@@ -24,15 +27,42 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
 
         private float _progress;
         private int _levelCoinCount = 0;
+        private IModelAccesService _models;
+        private IAssetProvider _assetProvider;
 
         public float Progress => _progress;
         public ForeverLevel Level { get => _level; set => _level = value; }
         public Transform PlayerTransform { get => _playerTransform; set => _playerTransform = value; }
         public event Action OnGenerated;
 
+        private void Awake()
+        {
+            _models = ServiceLocator.Container.Single<IModelAccesService>();
+            _assetProvider = ServiceLocator.Container.Single<IAssetProvider>();
+        }
+
         // Move away from here
         private void Start()
         {
+            _models.GameplayModel.CurrentRunCoins.Value = 0;
+            int levelAssetNumber;
+            switch(_models.ProgressModel.SessionProgress.CurrentLevel.Value)
+            {
+                case 1:
+                    levelAssetNumber = 1;
+                    break;
+                case 2:
+                    levelAssetNumber = 2;
+                    break;
+                case 3:
+                    levelAssetNumber = 3;
+                    break;
+                default:
+                    levelAssetNumber = 1;
+                    break;
+            }
+            _level = _assetProvider.LoadResource<ForeverLevel>("LevelGenerator/Level " + levelAssetNumber);
+
             Generate();
         }
 
