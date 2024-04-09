@@ -270,9 +270,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxSpeed: 15
-  _acceleration: 15
+  _acceleration: 12
   _sideAcceleration: 10
-  _wallBoostStrength: 2.5
+  _wallBoostStrength: 0
   _jumpForce: 6
   _unitContainer: {fileID: 143094182}
 --- !u!54 &107594068

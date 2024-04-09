@@ -29,6 +29,8 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
         private int _levelCoinCount = 0;
         private IModelAccesService _models;
         private IAssetProvider _assetProvider;
+        // y +2.25 foreach height level
+        private int _currentLevelHeight = 0;
 
         public float Progress => _progress;
         public ForeverLevel Level { get => _level; set => _level = value; }
@@ -114,6 +116,7 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
         }
         public void Generate()
         {
+            _currentLevelHeight = 0;
             _levelCoinCount = _level.GetLevelNumberOfCoins();
 
             foreach (var segment in _generatedSegments)
@@ -142,6 +145,8 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
                     }
                     var entranceLocalPos = instantiated.transform.worldToLocalMatrix.MultiplyPoint(levelSegment.customEntrance.position);
                     instantiated.transform.position = lastPos - entranceLocalPos;
+                    // move segment up depending on current height
+                    instantiated.transform.position = new Vector3(instantiated.transform.position.x, _currentLevelHeight * 2.25f, instantiated.transform.position.z);
                     levelSegment.InvokeOnExtruded();
                     lastPos = levelSegment.customExit.position;
                     _generatedSegments.Add(levelSegment);
@@ -149,6 +154,7 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
                     // Place humans and coins on segment
                     if (instantiated.TryGetComponent<LevelSegmentExtension>(out var segmentExtension))
                     {
+                        _currentLevelHeight += segmentExtension.HeightGrowLevel;
                         segmentExtension.ConfigureCollectables(coinsPerSegment);
                     }
                 }

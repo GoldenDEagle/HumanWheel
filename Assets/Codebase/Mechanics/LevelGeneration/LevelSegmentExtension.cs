@@ -9,9 +9,16 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
 {
     public class LevelSegmentExtension : MonoBehaviour
     {
+        [SerializeField] private int _heightGrowLevel = 0;
+        [SerializeField] private bool _placeHumans = true;
         [SerializeField] private int _humanCount  = 0;
+        [SerializeField] private bool _placeCoins = true;
         [SerializeField] private List<PlacementSpot> _humanPositions;
         [SerializeField] private List<PlacementSpot> _coinPositions;
+
+        public bool PlaceHumans => _placeHumans;
+        public bool PlaceCoins => _placeCoins;
+        public int HeightGrowLevel => _heightGrowLevel;
 
         public void ConfigureCollectables(int coinsToSpawn)
         {
