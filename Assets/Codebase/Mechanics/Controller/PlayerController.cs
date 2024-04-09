@@ -32,8 +32,9 @@ namespace Assets.Codebase.Mechanics.Controller
         private bool _isOnTheWall = false;
         private bool _isFinished = false;
         private bool _allUnitsLost = false;
+        private bool _lastUnitRemains = false;
 
-        public event Action OnAllUnitsLost;
+        public UnitContainer UnitContainer => _unitContainer;
 
         private void Awake()
         {
@@ -51,12 +52,14 @@ namespace Assets.Codebase.Mechanics.Controller
 
         private void OnEnable()
         {
-            _unitContainer.OnAllUnitsLost += LostAllUnits;
+            _unitContainer.OnAllUnitsLost += AllUnitsLost;
+            _unitContainer.OnLastUnitRemains += LastUnitRemains;
         }
 
         private void OnDisable()
         {
-            _unitContainer.OnAllUnitsLost -= LostAllUnits;
+            _unitContainer.OnAllUnitsLost -= AllUnitsLost;
+            _unitContainer.OnLastUnitRemains -= LastUnitRemains;
         }
 
         public void SetDirection(Vector2 direction)
@@ -126,17 +129,21 @@ namespace Assets.Codebase.Mechanics.Controller
             _tapIsActive = false;
         }
 
-        private void LostAllUnits()
+        private void AllUnitsLost()
         {
-            Debug.Log("All units lost!");
-            OnAllUnitsLost?.Invoke();
+            Debug.Log("Lost all units!");
             _allUnitsLost = true;
-            _rigidBody.useGravity = false;
-            _rigidBody.velocity = Vector3.zero;
+        }
 
-            // Rework
+        private void LastUnitRemains()
+        {
+            _lastUnitRemains = true;
+
+            // Rework this
             if (!_isFinished)
             {
+                _rigidBody.useGravity = false;
+                _rigidBody.velocity = Vector3.zero;
                 ServiceLocator.Container.Single<IModelAccesService>().GameplayModel.ActivateView(ViewId.FailView);
             }
         }
@@ -168,7 +175,7 @@ namespace Assets.Codebase.Mechanics.Controller
 
         private void FixedUpdate()
         {
-            if (_allUnitsLost) return;
+            if (_allUnitsLost || _lastUnitRemains) return;
 
             // Logic for climbing walls
             if (_isOnTheWall)

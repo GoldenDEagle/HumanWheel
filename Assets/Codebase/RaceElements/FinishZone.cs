@@ -35,7 +35,7 @@ namespace CodeBase.RaceElements
 
                 // Connect with player
                 playerWheel.FinishCrossed();
-                playerWheel.OnAllUnitsLost += AllUnitsPlaced;
+                playerWheel.UnitContainer.OnAllUnitsLost += AllUnitsPlaced;
 
                 // Set Camera
                 var camera = GameObject.FindWithTag("Cinemachine").GetComponent<CinemachineVirtualCamera>();

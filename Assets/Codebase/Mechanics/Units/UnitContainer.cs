@@ -17,9 +17,11 @@ namespace Assets.Codebase.Mechanics.Units
         private float _wheelForwardSpeed = 0f;
         private float _currentSideInput = 0f;
         private float _radius;
+        private bool _rotationEnabled = true;
         public float Radius => _radius;
 
         public event Action OnAllUnitsLost;
+        public event Action OnLastUnitRemains;
 
         public void AddUnit(HumanUnit newUnit)
         {
@@ -41,13 +43,19 @@ namespace Assets.Codebase.Mechanics.Units
             _units.RemoveAt(0);
             unit.transform.SetParent(null);
             unit.DisableInteractions();
-            AllignUnits();
-
+            
             // If removed last unit
             if (_units.Count < 1)
             {
                 OnAllUnitsLost?.Invoke();
             }
+            if (_units.Count < 2)
+            {
+                OnLastUnitRemains?.Invoke();
+                _rotationEnabled = false;
+            }
+
+            AllignUnits();
 
             return unit;
         }
@@ -90,6 +98,8 @@ namespace Assets.Codebase.Mechanics.Units
 
         private void Update()
         {
+            if (!_rotationEnabled) return;
+
             var rotationSpeedRad = _wheelForwardSpeed / _radius;
             var rotationSpeedDegrees = rotationSpeedRad * 57.3f;
 
