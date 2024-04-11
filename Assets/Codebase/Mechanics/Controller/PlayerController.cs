@@ -113,7 +113,7 @@ namespace Assets.Codebase.Mechanics.Controller
         public void EscapeWall()
         {
             _isOnTheWall = false;
-            _rigidBody.AddForce(Vector3.forward * _wallBoostStrength, ForceMode.Impulse);
+            _rigidBody.AddForce((0.5f * Vector3.forward + Vector3.down) * _wallBoostStrength, ForceMode.Impulse);
         }
 
         public void DoJump()

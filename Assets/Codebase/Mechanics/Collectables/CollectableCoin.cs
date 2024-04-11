@@ -26,7 +26,7 @@ namespace Assets.Codebase.Mechanics.Collectables
         private void Start()
         {
             // Random rotation starting point
-            _coinMesh.Rotate(Vector3.forward, Random.Range(0f, 180f));
+            _coinMesh.Rotate(Vector3.up, Random.Range(0f, 180f));
         }
 
         private void Update()
@@ -34,7 +34,7 @@ namespace Assets.Codebase.Mechanics.Collectables
             if (_isBeingDestroyed) return;
 
             // Always rotate
-            _coinMesh.Rotate(Vector3.forward, Time.deltaTime * _coinRotationSpeed);
+            _coinMesh.Rotate(Vector3.up, Time.deltaTime * _coinRotationSpeed);
         }
 
         private void OnTriggerEnter(Collider other)

@@ -21742,7 +21742,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbb92ee857735b0498f0d56defcaf3d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _heightGrowLevel: 0
+  _placeHumans: 1
   _humanCount: 1
+  _placeCoins: 1
   _humanPositions:
   - {fileID: 607231507819511852}
   - {fileID: 1354894028281477332}
