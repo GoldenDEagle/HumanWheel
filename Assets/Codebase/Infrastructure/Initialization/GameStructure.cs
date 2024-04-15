@@ -102,7 +102,7 @@ namespace Assets.Codebase.Infrastructure.Initialization
             services.RegisterSingle<ILocalizationService>(new GoogleSheetLocalizationService());
             services.RegisterSingle<IPresentersService>(new PresentersService(_presenters));
             services.RegisterSingle<IModelAccesService>(new ModelAccessService(_progressModel, _gameplayModel));
-            services.RegisterSingle<ICollectablesFactory>(new CollectablesFactory(services.Single<IAssetProvider>()));
+            services.RegisterSingle<IGOFactory>(new GOFactory(services.Single<IAssetProvider>()));
         }
 
 

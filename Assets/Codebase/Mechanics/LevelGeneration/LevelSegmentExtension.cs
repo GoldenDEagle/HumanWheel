@@ -29,7 +29,7 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
 
         private void SpawnCoins(int coinsToSpawn)
         {
-            var collectablesFactory = ServiceLocator.Container.Single<ICollectablesFactory>();
+            var collectablesFactory = ServiceLocator.Container.Single<IGOFactory>();
 
             // not to exceed positions count
             if (coinsToSpawn > _coinPositions.Count) coinsToSpawn = _coinPositions.Count;
@@ -54,7 +54,7 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
 
         private void SpawnHumans()
         {
-            var collectablesFactory = ServiceLocator.Container.Single<ICollectablesFactory>();
+            var collectablesFactory = ServiceLocator.Container.Single<IGOFactory>();
 
             for (int i = 0; i < _humanCount; i++)
             {
@@ -70,6 +70,7 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
                     _humanPositions[randomIndex].IsOccupied = true;
                     human.transform.SetParent(_humanPositions[randomIndex].transform, false);
                     human.transform.localPosition = Vector3.zero;
+                    human.transform.Rotate(0f, 180f, 0f);
                 }
             }
         }

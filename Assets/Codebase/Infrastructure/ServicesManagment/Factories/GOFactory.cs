@@ -5,14 +5,15 @@ using UnityEngine;
 
 namespace Assets.Codebase.Infrastructure.ServicesManagment.Factories
 {
-    public class CollectablesFactory : ICollectablesFactory
+    public class GOFactory : IGOFactory
     {
         private const string CoinPath = "Collectables/GoldCoin";
         private const string HumansPath = "Units/Man_";
+        private const string BackgroundPiecesPath = "Background/BackgroundPiece_";
 
         private IAssetProvider _assetProvider;
 
-        public CollectablesFactory(IAssetProvider assetProvider)
+        public GOFactory(IAssetProvider assetProvider)
         {
             _assetProvider = assetProvider;
         }
@@ -28,6 +29,13 @@ namespace Assets.Codebase.Infrastructure.ServicesManagment.Factories
             int randomNumber = Random.Range(1, 7);
             var unit = _assetProvider.Instantiate(HumansPath + randomNumber).GetComponent<HumanUnit>();
             return unit;
+        }
+
+        public Transform CreateBackgroundPiece()
+        {
+            int randomNumber = Random.Range(1, 7);
+            var piece = _assetProvider.Instantiate(BackgroundPiecesPath + 1).GetComponent<Transform>();
+            return piece;
         }
     }
 }

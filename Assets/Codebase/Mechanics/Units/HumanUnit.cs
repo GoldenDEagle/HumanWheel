@@ -6,6 +6,9 @@ namespace Assets.Codebase.Mechanics.Units
     [RequireComponent(typeof(Collider))]
     public class HumanUnit : MonoBehaviour
     {
+        private int WavingAnimationKey = Animator.StringToHash("isWaving");
+
+        [SerializeField] private Animator _humanAnimator;
         [SerializeField] private bool _isConnected;
 
         private Collider _collider;
@@ -13,10 +16,18 @@ namespace Assets.Codebase.Mechanics.Units
         private void Awake()
         {
             _collider = GetComponent<Collider>();
+        }
 
-            if ( _isConnected )
+        private void OnEnable()
+        {
+            if (_isConnected)
             {
                 _collider.enabled = false;
+                _humanAnimator.SetBool(WavingAnimationKey, false);
+            }
+            else
+            {
+                _humanAnimator.SetBool(WavingAnimationKey, true);
             }
         }
 
@@ -26,6 +37,7 @@ namespace Assets.Codebase.Mechanics.Units
             {
                 _collider.enabled = false;
                 _isConnected = true;
+                _humanAnimator.SetBool(WavingAnimationKey, false);
                 player.AttachNewUnit(this);
             }
         }

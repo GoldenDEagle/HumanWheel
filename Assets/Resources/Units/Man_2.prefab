@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9feefb82c13664f4fa497ceefb3c2efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _humanAnimator: {fileID: 1577127895017075628}
   _isConnected: 0
 --- !u!65 &1808162113179156854
 BoxCollider:
@@ -132,11 +133,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: Man 03
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 30ed473855ed5443dbb904782900787a, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 00be940b0b3e9144487abb8361640f29, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 30ed473855ed5443dbb904782900787a, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30ed473855ed5443dbb904782900787a, type: 3}
+--- !u!95 &1577127895017075628 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 30ed473855ed5443dbb904782900787a, type: 3}
+  m_PrefabInstance: {fileID: 4938620161924697661}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4828766595275286998 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 30ed473855ed5443dbb904782900787a, type: 3}

@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9feefb82c13664f4fa497ceefb3c2efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _humanAnimator: {fileID: 8866772494243015694}
   _isConnected: 0
 --- !u!65 &1808162113179156854
 BoxCollider:
@@ -132,6 +133,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Woman 03
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 10ecf4831cc404d088164bd85cacdac4, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 00be940b0b3e9144487abb8361640f29, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 10ecf4831cc404d088164bd85cacdac4, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -140,5 +149,10 @@ PrefabInstance:
 --- !u!4 &3309361011751057012 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 10ecf4831cc404d088164bd85cacdac4, type: 3}
+  m_PrefabInstance: {fileID: 3055568321606816159}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8866772494243015694 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 10ecf4831cc404d088164bd85cacdac4, type: 3}
   m_PrefabInstance: {fileID: 3055568321606816159}
   m_PrefabAsset: {fileID: 0}

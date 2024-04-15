@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3545469705868003277}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9feefb82c13664f4fa497ceefb3c2efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _humanAnimator: {fileID: 5408636571487138116}
   _isConnected: 0
 --- !u!65 &1808162113179156854
 BoxCollider:
@@ -132,6 +133,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Man 02
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 62ae7c8fba4754341a73b71831e300af, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 00be940b0b3e9144487abb8361640f29, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 62ae7c8fba4754341a73b71831e300af, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -140,5 +149,10 @@ PrefabInstance:
 --- !u!4 &2157077551595432766 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 62ae7c8fba4754341a73b71831e300af, type: 3}
+  m_PrefabInstance: {fileID: 1902141817783962837}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5408636571487138116 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 62ae7c8fba4754341a73b71831e300af, type: 3}
   m_PrefabInstance: {fileID: 1902141817783962837}
   m_PrefabAsset: {fileID: 0}

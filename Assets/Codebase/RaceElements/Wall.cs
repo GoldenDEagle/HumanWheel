@@ -35,7 +35,7 @@ namespace Assets.Codebase.RaceElements
                 }
 
                 unit.transform.SetParent(transform, false);
-                Vector3 unitPosition = new Vector3(playerWheel.transform.position.x, _attachedUnitTransform.position.y, _attachedUnitTransform.position.z);
+                Vector3 unitPosition = new Vector3(playerWheel.transform.position.x, _attachedUnitTransform.position.y + 1f, _attachedUnitTransform.position.z);
                 unit.transform.SetPositionAndRotation(unitPosition, _attachedUnitTransform.transform.rotation);
                 playerWheel.ReactToWallCollision();
             }

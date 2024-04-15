@@ -1,5 +1,6 @@
 ﻿using Assets.Codebase.Infrastructure.ServicesManagment;
 using Assets.Codebase.Infrastructure.ServicesManagment.Assets;
+using Assets.Codebase.Infrastructure.ServicesManagment.Factories;
 using Assets.Codebase.Infrastructure.ServicesManagment.ModelAccess;
 using Assets.Codebase.Mechanics.Controller;
 using Dreamteck.Forever;
@@ -133,6 +134,7 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
             Vector3 lastPos = Vector3.zero;
             int totalSergments = _selectedSegments.Count;
             int coinsPerSegment = _levelCoinCount / totalSergments;
+            int backgroundStep = 0;
 
             foreach (var segment in _selectedSegments)
             {
@@ -150,6 +152,18 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
                     levelSegment.InvokeOnExtruded();
                     lastPos = levelSegment.customExit.position;
                     _generatedSegments.Add(levelSegment);
+
+                    if (backgroundStep == 0)
+                    {
+                        var background = ServiceLocator.Container.Single<IGOFactory>().CreateBackgroundPiece();
+                        background.position = instantiated.transform.position + new Vector3(0f, -85f, 100f);
+                    }
+                    backgroundStep++;
+                    if (backgroundStep > 4)
+                    {
+                        backgroundStep = 0;
+                    }
+
 
                     // Place humans and coins on segment
                     if (instantiated.TryGetComponent<LevelSegmentExtension>(out var segmentExtension))
