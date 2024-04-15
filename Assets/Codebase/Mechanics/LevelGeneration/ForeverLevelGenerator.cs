@@ -156,10 +156,10 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
                     if (backgroundStep == 0)
                     {
                         var background = ServiceLocator.Container.Single<IGOFactory>().CreateBackgroundPiece();
-                        background.position = instantiated.transform.position + new Vector3(0f, -85f, 100f);
+                        background.position = instantiated.transform.position + new Vector3(0f, -120f, 100f);
                     }
                     backgroundStep++;
-                    if (backgroundStep > 4)
+                    if (backgroundStep > 5)
                     {
                         backgroundStep = 0;
                     }
