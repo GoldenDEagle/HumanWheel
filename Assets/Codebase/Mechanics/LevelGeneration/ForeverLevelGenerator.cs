@@ -148,7 +148,7 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
                     var entranceLocalPos = instantiated.transform.worldToLocalMatrix.MultiplyPoint(levelSegment.customEntrance.position);
                     instantiated.transform.position = lastPos - entranceLocalPos;
                     // move segment up depending on current height
-                    instantiated.transform.position = new Vector3(instantiated.transform.position.x, _currentLevelHeight * 2.25f, instantiated.transform.position.z);
+                    //instantiated.transform.position = new Vector3(instantiated.transform.position.x, _currentLevelHeight * 2.25f, instantiated.transform.position.z);
                     levelSegment.InvokeOnExtruded();
                     lastPos = levelSegment.customExit.position;
                     _generatedSegments.Add(levelSegment);
