@@ -14,6 +14,7 @@ namespace Assets.Codebase.Models.Gameplay
         private ReactiveProperty<ViewId> _activeViewId;
         private Subject<ViewId> _onViewClosed;
         private Subject<GameState> _onGameStateChanged;
+        private Subject<Unit> _onUnitAdded;
         private SceneLoader _sceneLoader;
 
 
@@ -22,12 +23,15 @@ namespace Assets.Codebase.Models.Gameplay
         public ReactiveProperty<ViewId> ActiveViewId => _activeViewId;
         public Subject<ViewId> OnViewClosed => _onViewClosed;
         public Subject<GameState> OnGameStateChanged => _onGameStateChanged;
+        public Subject<Unit> OnHumanAdded => _onUnitAdded;
 
         // Current run info
         private ReactiveProperty<int> _currentRunCoins;
         public ReactiveProperty<int> CurrentRunCoins => _currentRunCoins;
         private ReactiveProperty<int> _collectedHumans;
         public ReactiveProperty<int> CollectedHumans => _collectedHumans;
+
+        
 
         public GameplayModel()
         {
@@ -40,6 +44,7 @@ namespace Assets.Codebase.Models.Gameplay
 
             _onViewClosed = new Subject<ViewId>();
             _onGameStateChanged = new Subject<GameState>();
+            _onUnitAdded = new Subject<Unit>();
         }
 
         public void InitModel()
@@ -86,6 +91,11 @@ namespace Assets.Codebase.Models.Gameplay
             var newCoinAmount = Convert.ToInt32(_currentRunCoins.Value * multiplier);
             _currentRunCoins.Value = newCoinAmount;
             return _currentRunCoins.Value;
+        }
+
+        public void AddHumanToWheel()
+        {
+            _onUnitAdded.OnNext(Unit.Default);
         }
     }
 }

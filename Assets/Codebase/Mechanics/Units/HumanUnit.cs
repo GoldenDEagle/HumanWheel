@@ -35,11 +35,16 @@ namespace Assets.Codebase.Mechanics.Units
         {
             if (other.TryGetComponent(out PlayerController player))
             {
-                _collider.enabled = false;
-                _isConnected = true;
-                _humanAnimator.SetBool(WavingAnimationKey, false);
+                SetConnected();
                 player.AttachNewUnit(this);
             }
+        }
+
+        public void SetConnected()
+        {
+            _collider.enabled = false;
+            _isConnected = true;
+            _humanAnimator.SetBool(WavingAnimationKey, false);
         }
 
         public void DisableInteractions()

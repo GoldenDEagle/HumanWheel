@@ -1,4 +1,5 @@
-﻿using Assets.Codebase.Presenters.Base;
+﻿using Assets.Codebase.Models.Gameplay.Data;
+using Assets.Codebase.Presenters.Base;
 using Assets.Codebase.Utils.Values;
 using Assets.Codebase.Views.Base;
 using Cysharp.Threading.Tasks;
@@ -44,13 +45,13 @@ namespace Assets.Codebase.Presenters.EndGame
         public void QuitClicked()
         {
             ClosingActions();
-            GameplayModel.LoadScene(SceneNames.MAIN_MENU, () => { GameplayModel.ActivateView(ViewId.MainMenuView); });
+            GameplayModel.LoadScene(SceneNames.MAIN_MENU, OnMenuLoaded);
         }
 
         public void ContinueClicked()
         {
             ClosingActions();
-            GameplayModel.LoadScene(SceneNames.GAME, () => { GameplayModel.ActivateView(ViewId.IngameView); });
+            GameplayModel.LoadScene(SceneNames.GAME, OnGameLoaded);
         }
 
 
@@ -84,6 +85,18 @@ namespace Assets.Codebase.Presenters.EndGame
                 value++;
                 CollectedCoinsString.Value = "COLLECTED COINS: " + value.ToString();
             }
+        }
+
+        private void OnGameLoaded()
+        {
+            GameplayModel.ChangeGameState(GameState.PreGame);
+            GameplayModel.ActivateView(ViewId.PreGameView);
+        }
+
+        private void OnMenuLoaded()
+        {
+            GameplayModel.ChangeGameState(GameState.Menu);
+            GameplayModel.ActivateView(ViewId.MainMenuView);
         }
     }
 }

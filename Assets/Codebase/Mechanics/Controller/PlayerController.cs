@@ -1,10 +1,12 @@
 ﻿using Assets.Codebase.Infrastructure.ServicesManagment;
+using Assets.Codebase.Infrastructure.ServicesManagment.Factories;
 using Assets.Codebase.Infrastructure.ServicesManagment.ModelAccess;
 using Assets.Codebase.Mechanics.Units;
 using Assets.Codebase.Models.Gameplay.Data;
 using Assets.Codebase.Views.Base;
 using Cysharp.Threading.Tasks.Triggers;
 using System;
+using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,6 +31,7 @@ namespace Assets.Codebase.Mechanics.Controller
         private BoxCollider _triggerCollider;
         private CapsuleCollider _rbCollider;
         private IModelAccesService _models;
+        private CompositeDisposable _disposables = new CompositeDisposable();
 
         private bool _tapIsActive = false;
         private bool _isOnTheWall = false;
@@ -58,12 +61,16 @@ namespace Assets.Codebase.Mechanics.Controller
         {
             _unitContainer.OnAllUnitsLost += AllUnitsLost;
             _unitContainer.OnLastUnitRemains += LastUnitRemains;
+
+            _models.GameplayModel.OnHumanAdded.Subscribe(_ => AddRandomHumanToWheel()).AddTo(_disposables);
         }
 
         private void OnDisable()
         {
             _unitContainer.OnAllUnitsLost -= AllUnitsLost;
             _unitContainer.OnLastUnitRemains -= LastUnitRemains;
+
+            _disposables.Dispose();
         }
 
         public void SetDirection(Vector2 direction)
@@ -161,10 +168,18 @@ namespace Assets.Codebase.Mechanics.Controller
             _triggerCollider.size = new Vector3(_triggerCollider.size.x, newRadius + 1, newRadius + 1);
         }
 
+        private void AddRandomHumanToWheel()
+        {
+            var human = ServiceLocator.Container.Single<IGOFactory>().CreateHumanUnit();
+            human.SetConnected();
+            AttachNewUnit(human);
+        }
 
         // Update is called once per frame
         void Update()
         {
+            if (_models.GameplayModel.State.Value != GameState.Game) return;
+
             if (_tapIsActive)
             {
                 SetDirectionBasedOnPointer();

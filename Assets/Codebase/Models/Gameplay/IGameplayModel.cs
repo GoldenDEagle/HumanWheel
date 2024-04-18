@@ -40,10 +40,11 @@ namespace Assets.Codebase.Models.Gameplay
 
 
 
-        // RUN INFO
+        // RUN
 
         public ReactiveProperty<int> CurrentRunCoins { get; }
         public ReactiveProperty<int> CollectedHumans { get; }
+        public Subject<Unit> OnHumanAdded { get; }
 
         /// <summary>
         /// Set humans collected during the run
@@ -62,5 +63,6 @@ namespace Assets.Codebase.Models.Gameplay
         /// </summary>
         /// <param name="multiplier"></param>
         public int MultiplyRunCoinAmount(float multiplier);
+        public void AddHumanToWheel();
     }
 }
