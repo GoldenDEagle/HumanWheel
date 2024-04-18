@@ -13,6 +13,7 @@ namespace Assets.Codebase.Models.Gameplay
         private ReactiveProperty<GameState> _state;
         private ReactiveProperty<ViewId> _activeViewId;
         private Subject<ViewId> _onViewClosed;
+        private Subject<GameState> _onGameStateChanged;
         private SceneLoader _sceneLoader;
 
 
@@ -20,6 +21,7 @@ namespace Assets.Codebase.Models.Gameplay
         public ReactiveProperty<GameState> State => _state;
         public ReactiveProperty<ViewId> ActiveViewId => _activeViewId;
         public Subject<ViewId> OnViewClosed => _onViewClosed;
+        public Subject<GameState> OnGameStateChanged => _onGameStateChanged;
 
         // Current run info
         private ReactiveProperty<int> _currentRunCoins;
@@ -31,12 +33,13 @@ namespace Assets.Codebase.Models.Gameplay
         {
             _sceneLoader = new SceneLoader();
 
-            _state = new ReactiveProperty<GameState>(GameState.None);
+            _state = new ReactiveProperty<GameState>(GameState.Bootstrap);
             _activeViewId = new ReactiveProperty<ViewId>(ViewId.None);
             _currentRunCoins = new ReactiveProperty<int>(0);
             _collectedHumans = new ReactiveProperty<int>(0);
 
             _onViewClosed = new Subject<ViewId>();
+            _onGameStateChanged = new Subject<GameState>();
         }
 
         public void InitModel()
@@ -55,6 +58,8 @@ namespace Assets.Codebase.Models.Gameplay
         public void ChangeGameState(GameState state)
         {
             State.Value = state;
+
+            _onGameStateChanged.OnNext(state);
         }
 
         public void LoadScene(string name, Action onLoaded = null)

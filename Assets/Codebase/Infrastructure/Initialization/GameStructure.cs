@@ -15,6 +15,7 @@ using Assets.Codebase.Presenters.Example;
 using Assets.Codebase.Presenters.Fail;
 using Assets.Codebase.Presenters.Ingame;
 using Assets.Codebase.Presenters.MainMenu;
+using Assets.Codebase.Presenters.PreGame;
 using GamePush;
 using System.Collections.Generic;
 using UnityEngine;
@@ -78,7 +79,8 @@ namespace Assets.Codebase.Infrastructure.Initialization
                 new MainMenuPresenter(),
                 new EndgamePresenter(),
                 new FailPresenter(),
-                new IngamePresenter()
+                new IngamePresenter(),
+                new PreGamePresenter()
             };
 
             foreach (var presenter in _presenters)

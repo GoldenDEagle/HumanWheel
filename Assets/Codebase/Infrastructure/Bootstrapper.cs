@@ -1,6 +1,7 @@
 using Assets.Codebase.Infrastructure.Initialization;
 using Assets.Codebase.Infrastructure.ServicesManagment;
 using Assets.Codebase.Infrastructure.ServicesManagment.ModelAccess;
+using Assets.Codebase.Models.Gameplay.Data;
 using Assets.Codebase.Utils.GOComponents;
 using Assets.Codebase.Utils.Values;
 using Assets.Codebase.Views.Base;
@@ -20,7 +21,12 @@ namespace Assets.Codebase.Infrastructure
             GameStructure structure = new GameStructure(_uiRoot, _launchParams);
 
             // Start the game
-            ServiceLocator.Container.Single<IModelAccesService>().GameplayModel.LoadScene(SceneNames.MAIN_MENU, () => { ServiceLocator.Container.Single<IModelAccesService>().GameplayModel.ActivateView(ViewId.MainMenuView); });
+            var gameplayModel = ServiceLocator.Container.Single<IModelAccesService>().GameplayModel;
+            gameplayModel.LoadScene(SceneNames.MAIN_MENU, () =>
+            {
+                gameplayModel.ActivateView(ViewId.MainMenuView);
+                gameplayModel.ChangeGameState(GameState.Menu);
+            });
         }
     }
 }

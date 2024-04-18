@@ -1,6 +1,7 @@
 ﻿using Assets.Codebase.Infrastructure.ServicesManagment;
 using Assets.Codebase.Infrastructure.ServicesManagment.ModelAccess;
 using Assets.Codebase.Mechanics.Units;
+using Assets.Codebase.Models.Gameplay.Data;
 using Assets.Codebase.Views.Base;
 using Cysharp.Threading.Tasks.Triggers;
 using System;
@@ -27,6 +28,7 @@ namespace Assets.Codebase.Mechanics.Controller
         private Vector2 _direction;
         private BoxCollider _triggerCollider;
         private CapsuleCollider _rbCollider;
+        private IModelAccesService _models;
 
         private bool _tapIsActive = false;
         private bool _isOnTheWall = false;
@@ -38,6 +40,8 @@ namespace Assets.Codebase.Mechanics.Controller
 
         private void Awake()
         {
+            _models = ServiceLocator.Container.Single<IModelAccesService>();
+
             _triggerCollider = GetComponent<BoxCollider>();
             _rbCollider = GetComponent<CapsuleCollider>();
 
@@ -175,6 +179,8 @@ namespace Assets.Codebase.Mechanics.Controller
 
         private void FixedUpdate()
         {
+            if (_models.GameplayModel.State.Value != GameState.Game) return;
+
             if (_allUnitsLost || _lastUnitRemains) return;
 
             // Logic for climbing walls

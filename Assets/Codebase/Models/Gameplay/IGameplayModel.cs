@@ -21,6 +21,10 @@ namespace Assets.Codebase.Models.Gameplay
         /// </summary>
         public Subject<ViewId> OnViewClosed { get; }
         /// <summary>
+        /// Called when game state was changed
+        /// </summary>
+        public Subject<GameState> OnGameStateChanged { get; }
+        /// <summary>
         /// Use to switch between views (deactivates all others)
         /// </summary>
         /// <param name="viewId"></param>

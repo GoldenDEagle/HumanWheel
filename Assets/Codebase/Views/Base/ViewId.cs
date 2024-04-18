@@ -10,5 +10,6 @@
         IngameView,
         FailView,
         PauseView,
+        PreGameView,
     }
 }
