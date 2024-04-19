@@ -7,6 +7,7 @@ namespace Assets.Codebase.Presenters.PreGame
     {
         public ReactiveProperty<string> TotalCoinsString { get; }
         public ReactiveProperty<string> CurrentLevelString { get; }
+        public ReactiveProperty<bool> WatchAdButtonActiveState { get; }
 
         public void StartGameClicked();
         public void BuyHumanClicked();

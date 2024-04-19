@@ -3,6 +3,14 @@
     public enum SoundId
     {
         // List all sounds:
-        None = 0,
+        None,
+        UIClick,
+        UIWindowOpen,
+        CoinCollected,
+        HumanCollected,
+        HumanLost,
+        GameWon,
+        GameLost,
+        AdRewarded,
     }
 }

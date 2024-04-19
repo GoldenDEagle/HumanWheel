@@ -2,6 +2,7 @@
 using Assets.Codebase.Infrastructure.ServicesManagment.Assets;
 using Assets.Codebase.Models.Progress;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 namespace Assets.Codebase.Infrastructure.ServicesManagment.Audio
@@ -15,16 +16,22 @@ namespace Assets.Codebase.Infrastructure.ServicesManagment.Audio
 
         private IAssetProvider _assets;
         private IProgressModel _progress;
+        private AudioSource _effectsSource;
+        private AudioSource _musicSource;
 
         // All clips loaded from container
         private Dictionary<SoundId, AudioClip> _clips;
 
-        public AudioService(IAssetProvider assetProvider, IProgressModel progressModel)
+        public AudioService(IAssetProvider assetProvider, IProgressModel progressModel, AudioSource effectsSource, AudioSource musicSource)
         {
             _assets = assetProvider;
             _progress = progressModel;
+            _effectsSource = effectsSource;
+            _musicSource = musicSource;
 
             InitData();
+            progressModel.SessionProgress.SFXVolume.Subscribe(value => SetSFXVolume(value));
+            progressModel.SessionProgress.MusicVolume.Subscribe(value => SetMusicVolume(value));
         }
 
         private void InitData()
@@ -42,34 +49,34 @@ namespace Assets.Codebase.Infrastructure.ServicesManagment.Audio
 
         public void SetMusicVolume(float value)
         {
-            _progress.SessionProgress.MusicVolume.Value = value;
+            _musicSource.volume = value;
         }
 
         public void SetSFXVolume(float value)
         {
-            _progress.SessionProgress.SFXVolume.Value = value;
+            _effectsSource.volume = value;
         }
 
         // Next logic depends on project specifications.
 
         public void ChangeMusic(SoundId musicId)
         {
-            throw new System.NotImplementedException();
+            _musicSource.clip = _clips[musicId];
         }
 
         public void PlaySfxSound(SoundId soundId)
         {
-            throw new System.NotImplementedException();
+            _effectsSource.PlayOneShot(_clips[soundId]);
         }
 
         public void MuteAll()
         {
-            throw new System.NotImplementedException();
+            AudioListener.pause = true;
         }
 
         public void UnmuteAll()
         {
-            throw new System.NotImplementedException();
+            AudioListener.pause = false;
         }
     }
 }

@@ -13,12 +13,14 @@ namespace Assets.Codebase.Infrastructure
     public class Bootstrapper : MonoBehaviour
     {
         [SerializeField] private RectTransform _uiRoot;
+        [SerializeField] private AudioSource _musicSource;
+        [SerializeField] private AudioSource _effectsSource;
         [SerializeField] private GameLaunchParams _launchParams;
 
         private void Awake()
         {
             // Create game structure
-            GameStructure structure = new GameStructure(_uiRoot, _launchParams);
+            GameStructure structure = new GameStructure(_uiRoot, _musicSource, _effectsSource, _launchParams);
 
             // Start the game
             var gameplayModel = ServiceLocator.Container.Single<IModelAccesService>().GameplayModel;

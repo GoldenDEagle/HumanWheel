@@ -18,8 +18,10 @@ namespace Assets.Codebase.Utils.GOComponents
             if (GameStructure.IsGameInitialized) return;
 
             var uiRoot = Instantiate(_uiRootPrefab);
+            var musicSource = new GameObject().AddComponent<AudioSource>();
+            var effectsSource = new GameObject().AddComponent<AudioSource>();
 
-            GameStructure structure = new GameStructure(uiRoot, _gameLaunchParams);
+            GameStructure structure = new GameStructure(uiRoot, musicSource, effectsSource, _gameLaunchParams);
         }
 #endif
     }

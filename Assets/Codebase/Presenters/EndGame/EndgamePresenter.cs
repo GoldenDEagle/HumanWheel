@@ -1,4 +1,6 @@
-﻿using Assets.Codebase.Models.Gameplay.Data;
+﻿using Assets.Codebase.Infrastructure.ServicesManagment.Ads;
+using Assets.Codebase.Infrastructure.ServicesManagment;
+using Assets.Codebase.Models.Gameplay.Data;
 using Assets.Codebase.Presenters.Base;
 using Assets.Codebase.Utils.Values;
 using Assets.Codebase.Views.Base;
@@ -13,8 +15,11 @@ namespace Assets.Codebase.Presenters.EndGame
         public ReactiveProperty<string> ClearedLevelString { get; private set; }
         public ReactiveProperty<string> TotalCoinsString { get; private set; }
         public ReactiveProperty<string> CollectedCoinsString { get; private set; }
+        public ReactiveProperty<bool> DoubleRewardButtonActiveState { get; private set; }
 
-        private int _coinAnimationStep = 100;
+        private IDisposable _rewardedSubscription;
+
+        private int _coinAnimationStep = 50;
 
         public EndgamePresenter()
         {
@@ -23,11 +28,13 @@ namespace Assets.Codebase.Presenters.EndGame
             ClearedLevelString = new ReactiveProperty<string>();
             TotalCoinsString = new ReactiveProperty<string>();
             CollectedCoinsString = new ReactiveProperty<string>();
+            DoubleRewardButtonActiveState = new ReactiveProperty<bool>();
         }
 
         public override void CreateView()
         {
             base.CreateView();
+            DoubleRewardButtonActiveState.Value = ServiceLocator.Container.Single<IAdsService>().CheckIfRewardedIsAvailable();
             CollectedCoinsString.Value = GameplayModel.CurrentRunCoins.Value.ToString();
             ClearedLevelString.Value = "CLEARED LEVEL " + ProgressModel.SessionProgress.CurrentLevel.ToString();
 
@@ -39,7 +46,7 @@ namespace Assets.Codebase.Presenters.EndGame
         protected override void SubscribeToModelChanges()
         {
             base.SubscribeToModelChanges();
-            ProgressModel.SessionProgress.TotalCoins.Subscribe(value => TotalCoinsString.Value = "TOTAL COINS: " + value).AddTo(CompositeDisposable);
+            ProgressModel.SessionProgress.TotalCoins.Subscribe(value => TotalCoinsString.Value = value.ToString()).AddTo(CompositeDisposable);
         }
 
         public void QuitClicked()
@@ -54,7 +61,16 @@ namespace Assets.Codebase.Presenters.EndGame
             GameplayModel.LoadScene(SceneNames.GAME, OnGameLoaded);
         }
 
+        public void DoubleRewardButtonClicked()
+        {
+            var adService = ServiceLocator.Container.Single<IAdsService>();
 
+            if (!adService.CheckIfRewardedIsAvailable()) return;
+
+            DoubleRewardButtonActiveState.Value = false;
+            _rewardedSubscription = adService.OnRewardedSuccess.Subscribe(_ => OnRewardGranted()).AddTo(CompositeDisposable);
+            adService.ShowRewarded();
+        }
 
 
 
@@ -77,13 +93,13 @@ namespace Assets.Codebase.Presenters.EndGame
         private async UniTaskVoid AnimateCoinIncrease(int startingValue, int endingValue)
         {
             int value = startingValue;
-            CollectedCoinsString.Value = "COLLECTED COINS: " + value.ToString();
+            CollectedCoinsString.Value = value.ToString();
 
             while (value < endingValue)
             {
                 await UniTask.Delay(_coinAnimationStep);
                 value++;
-                CollectedCoinsString.Value = "COLLECTED COINS: " + value.ToString();
+                CollectedCoinsString.Value = value.ToString();
             }
         }
 
@@ -97,6 +113,12 @@ namespace Assets.Codebase.Presenters.EndGame
         {
             GameplayModel.ChangeGameState(GameState.Menu);
             GameplayModel.ActivateView(ViewId.MainMenuView);
+        }
+
+        private void OnRewardGranted()
+        {
+            CompositeDisposable.Remove(_rewardedSubscription);
+            PrettyCoinIncrease(GameplayModel.CurrentRunCoins.Value, 2);
         }
     }
 }

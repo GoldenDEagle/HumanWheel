@@ -16,6 +16,7 @@ namespace Assets.Codebase.Views.EndGame
         [SerializeField] private TMP_Text _clearedLevelText;
         [SerializeField] private Button _continueButton;
         [SerializeField] private Button _quitButton;
+        [SerializeField] private Button _doubleRewardButton;
 
         private IEndgamePresenter _presenter;
 
@@ -32,6 +33,7 @@ namespace Assets.Codebase.Views.EndGame
             _presenter.CollectedCoinsString.SubscribeToTMPText(_collectedCoinsText).AddTo(CompositeDisposable);
             _presenter.TotalCoinsString.SubscribeToTMPText(_totalCoinsText).AddTo(CompositeDisposable);
             _presenter.ClearedLevelString.SubscribeToTMPText(_clearedLevelText).AddTo(CompositeDisposable);
+            _presenter.DoubleRewardButtonActiveState.Subscribe(value => _doubleRewardButton.gameObject.SetActive(value)).AddTo(CompositeDisposable);
         }
 
         protected override void SubscribeToUserInput()
