@@ -1,4 +1,6 @@
-﻿using Assets.Codebase.Infrastructure.ServicesManagment;
+﻿using Assets.Codebase.Data.Audio;
+using Assets.Codebase.Infrastructure.ServicesManagment;
+using Assets.Codebase.Infrastructure.ServicesManagment.Audio;
 using Assets.Codebase.Infrastructure.ServicesManagment.Factories;
 using Assets.Codebase.Infrastructure.ServicesManagment.ModelAccess;
 using Assets.Codebase.Mechanics.Units;
@@ -31,6 +33,7 @@ namespace Assets.Codebase.Mechanics.Controller
         private BoxCollider _triggerCollider;
         private CapsuleCollider _rbCollider;
         private IModelAccesService _models;
+        private IAudioService _audio;
         private CompositeDisposable _disposables = new CompositeDisposable();
 
         private bool _tapIsActive = false;
@@ -44,6 +47,7 @@ namespace Assets.Codebase.Mechanics.Controller
         private void Awake()
         {
             _models = ServiceLocator.Container.Single<IModelAccesService>();
+            _audio = ServiceLocator.Container.Single<IAudioService>();
 
             _triggerCollider = GetComponent<BoxCollider>();
             _rbCollider = GetComponent<CapsuleCollider>();
@@ -96,12 +100,14 @@ namespace Assets.Codebase.Mechanics.Controller
 
         public void AttachNewUnit(HumanUnit unit)
         {
+            _audio.PlaySfxSound(SoundId.HumanCollected);
             _unitContainer.AddUnit(unit);
             UpdateWheelSize(_unitContainer.Radius);
         }
 
         public HumanUnit GrabAUnit()
         {
+            _audio.PlaySfxSound(SoundId.HumanLost);
             var unit = _unitContainer.RemoveUnit();
 
             if (_isFinished)

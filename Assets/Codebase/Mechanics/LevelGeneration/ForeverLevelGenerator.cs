@@ -61,7 +61,7 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
                     levelAssetNumber = 3;
                     break;
                 default:
-                    levelAssetNumber = 1;
+                    levelAssetNumber = 0;
                     break;
             }
             _level = _assetProvider.LoadResource<ForeverLevel>("LevelGenerator/Level " + levelAssetNumber);

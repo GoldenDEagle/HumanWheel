@@ -7,6 +7,8 @@ using Assets.Codebase.Views.Base;
 using Cysharp.Threading.Tasks;
 using System;
 using UniRx;
+using Assets.Codebase.Infrastructure.ServicesManagment.Audio;
+using Assets.Codebase.Data.Audio;
 
 namespace Assets.Codebase.Presenters.EndGame
 {
@@ -34,6 +36,7 @@ namespace Assets.Codebase.Presenters.EndGame
         public override void CreateView()
         {
             base.CreateView();
+            ServiceLocator.Container.Single<IAudioService>().PlaySfxSound(SoundId.GameWon);
             DoubleRewardButtonActiveState.Value = ServiceLocator.Container.Single<IAdsService>().CheckIfRewardedIsAvailable();
             CollectedCoinsString.Value = GameplayModel.CurrentRunCoins.Value.ToString();
             ClearedLevelString.Value = "CLEARED LEVEL " + ProgressModel.SessionProgress.CurrentLevel.ToString();

@@ -640,8 +640,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  _playSoundOnClick: 0
-  _soundId: 0
+  _playSoundOnClick: 1
+  _soundId: 1
 --- !u!1 &5195858300714289932
 GameObject:
   m_ObjectHideFlags: 0
@@ -2093,5 +2093,5 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  _playSoundOnClick: 0
-  _soundId: 0
+  _playSoundOnClick: 1
+  _soundId: 1

@@ -40,6 +40,7 @@ namespace Assets.Codebase.Views.EndGame
         {
             _continueButton.OnClickAsObservable().Subscribe(_ => _presenter.ContinueClicked()).AddTo(CompositeDisposable);
             _quitButton.OnClickAsObservable().Subscribe(_ => _presenter.QuitClicked()).AddTo(CompositeDisposable);
+            _doubleRewardButton.OnClickAsObservable().Subscribe(_ => _presenter.DoubleRewardButtonClicked()).AddTo(CompositeDisposable);
         }
     }
 }

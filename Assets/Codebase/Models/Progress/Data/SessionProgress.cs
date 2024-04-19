@@ -23,8 +23,8 @@ namespace Assets.Codebase.Models.Progress.Data
         {
             CurrentLevel = new ReactiveProperty<int>(1);
             TotalCoins = new ReactiveProperty<int>(0);
-            MusicVolume = new ReactiveProperty<float>(0.5f);
-            SFXVolume = new ReactiveProperty<float>(0.5f);
+            MusicVolume = new ReactiveProperty<float>(0.25f);
+            SFXVolume = new ReactiveProperty<float>(0.75f);
         }
 
         /// <summary>

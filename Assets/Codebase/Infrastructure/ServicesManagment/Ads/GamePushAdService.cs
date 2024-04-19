@@ -63,7 +63,7 @@ namespace Assets.Codebase.Infrastructure.ServicesManagment.Ads
         private void RewardedSuccess(string key)
         {
             OnRewardedSuccess?.OnNext(Unit.Default);
-            _audio.PlaySfxSound(SoundId.None);
+            _audio.PlaySfxSound(SoundId.AdRewarded);
         }
 
         private void FullscreenClosed(bool correctly)

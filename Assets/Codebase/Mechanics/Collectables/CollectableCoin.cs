@@ -1,4 +1,6 @@
-﻿using Assets.Codebase.Infrastructure.ServicesManagment;
+﻿using Assets.Codebase.Data.Audio;
+using Assets.Codebase.Infrastructure.ServicesManagment;
+using Assets.Codebase.Infrastructure.ServicesManagment.Audio;
 using Assets.Codebase.Infrastructure.ServicesManagment.ModelAccess;
 using Assets.Codebase.Mechanics.Controller;
 using DG.Tweening;
@@ -49,6 +51,7 @@ namespace Assets.Codebase.Mechanics.Collectables
                 _modelAccesService.GameplayModel.ModifyRunCoinAmount(1);
 
                 // animated destroy
+                ServiceLocator.Container.Single<IAudioService>().PlaySfxSound(SoundId.CoinCollected);
                 Debug.Log("Coin collected");
                 Destroy(gameObject);
             }

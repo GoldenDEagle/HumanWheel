@@ -1,4 +1,7 @@
-﻿using Assets.Codebase.Models.Gameplay.Data;
+﻿using Assets.Codebase.Data.Audio;
+using Assets.Codebase.Infrastructure.ServicesManagment.Audio;
+using Assets.Codebase.Infrastructure.ServicesManagment;
+using Assets.Codebase.Models.Gameplay.Data;
 using Assets.Codebase.Presenters.Base;
 using Assets.Codebase.Utils.Values;
 using Assets.Codebase.Views.Base;
@@ -10,6 +13,12 @@ namespace Assets.Codebase.Presenters.Fail
         public FailPresenter()
         {
             CorrespondingViewId = ViewId.FailView;
+        }
+
+        public override void CreateView()
+        {
+            base.CreateView();
+            ServiceLocator.Container.Single<IAudioService>().PlaySfxSound(SoundId.GameLost);
         }
 
         public void QuitClicked()
