@@ -172,7 +172,7 @@ namespace Assets.Codebase.Mechanics.Controller
             _rbCollider.center = new Vector3(0f, -newRadius, 0f);
 
             _triggerCollider.center = new Vector3(0f, -newRadius, 0f);
-            _triggerCollider.size = new Vector3(_triggerCollider.size.x, newRadius + 1, newRadius + 1);
+            _triggerCollider.size = new Vector3(_triggerCollider.size.x, newRadius + 0.5f, newRadius + 1);
         }
 
         private void AddRandomHumanToWheel()
