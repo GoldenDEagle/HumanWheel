@@ -9,6 +9,7 @@ using System;
 using UniRx;
 using Assets.Codebase.Infrastructure.ServicesManagment.Audio;
 using Assets.Codebase.Data.Audio;
+using Assets.Codebase.Infrastructure.ServicesManagment.Localization;
 
 namespace Assets.Codebase.Presenters.EndGame
 {
@@ -18,6 +19,8 @@ namespace Assets.Codebase.Presenters.EndGame
         public ReactiveProperty<string> TotalCoinsString { get; private set; }
         public ReactiveProperty<string> CollectedCoinsString { get; private set; }
         public ReactiveProperty<bool> DoubleRewardButtonActiveState { get; private set; }
+
+        private const string LEVELCLEARED_KEY = "endgame_cleared";
 
         private IDisposable _rewardedSubscription;
 
@@ -39,7 +42,7 @@ namespace Assets.Codebase.Presenters.EndGame
             ServiceLocator.Container.Single<IAudioService>().PlaySfxSound(SoundId.GameWon);
             DoubleRewardButtonActiveState.Value = ServiceLocator.Container.Single<IAdsService>().CheckIfRewardedIsAvailable();
             CollectedCoinsString.Value = GameplayModel.CurrentRunCoins.Value.ToString();
-            ClearedLevelString.Value = "CLEARED LEVEL " + ProgressModel.SessionProgress.CurrentLevel.ToString();
+            ClearedLevelString.Value = ServiceLocator.Container.Single<ILocalizationService>().LocalizeTextByKey(LEVELCLEARED_KEY) + " " + ProgressModel.SessionProgress.CurrentLevel.ToString();
 
             // Multiply coins based on human count
             var coinMultiplier = 1 + (GameplayModel.CollectedHumans.Value - 1) * 0.1f;

@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 258668003606758225}
   - component: {fileID: 5757050063141117880}
   - component: {fileID: 6432781203453807324}
+  - component: {fileID: 4888580732371669162}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -144,8 +145,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: SETTINGS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4c8b1b764946d4c469da23ebb619fece, type: 2}
-  m_sharedMaterial: {fileID: 34200029740651671, guid: 4c8b1b764946d4c469da23ebb619fece, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ba64470fa5b19304eaae2f4274a0e975, type: 2}
+  m_sharedMaterial: {fileID: -1949160880028685983, guid: ba64470fa5b19304eaae2f4274a0e975, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -231,6 +232,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &4888580732371669162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783167013845815049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cd8fe7daef11ae4ebe72ac9d3dd68bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LocalizationKey: settings_title
 --- !u!1 &1222976872286119421
 GameObject:
   m_ObjectHideFlags: 0
@@ -1340,6 +1354,7 @@ GameObject:
   - component: {fileID: 2172141641423394707}
   - component: {fileID: 760472150242131343}
   - component: {fileID: 118742552735324304}
+  - component: {fileID: 1836428434650273555}
   m_Layer: 5
   m_Name: EffectsText
   m_TagString: Untagged
@@ -1398,8 +1413,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4c8b1b764946d4c469da23ebb619fece, type: 2}
-  m_sharedMaterial: {fileID: 34200029740651671, guid: 4c8b1b764946d4c469da23ebb619fece, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ba64470fa5b19304eaae2f4274a0e975, type: 2}
+  m_sharedMaterial: {fileID: -1949160880028685983, guid: ba64470fa5b19304eaae2f4274a0e975, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1423,7 +1438,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
+  m_fontSize: 37.9
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1485,6 +1500,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1836428434650273555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6940066490938702812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cd8fe7daef11ae4ebe72ac9d3dd68bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LocalizationKey: settings_effects
 --- !u!1 &7690590481421106963
 GameObject:
   m_ObjectHideFlags: 0
@@ -1620,6 +1648,7 @@ GameObject:
   - component: {fileID: 2995958773426636398}
   - component: {fileID: 7201568961320858231}
   - component: {fileID: 2513913173589289138}
+  - component: {fileID: 6426038219339831678}
   m_Layer: 5
   m_Name: MusicText
   m_TagString: Untagged
@@ -1676,8 +1705,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: MUSIC
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4c8b1b764946d4c469da23ebb619fece, type: 2}
-  m_sharedMaterial: {fileID: 34200029740651671, guid: 4c8b1b764946d4c469da23ebb619fece, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ba64470fa5b19304eaae2f4274a0e975, type: 2}
+  m_sharedMaterial: {fileID: -1949160880028685983, guid: ba64470fa5b19304eaae2f4274a0e975, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1701,7 +1730,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
+  m_fontSize: 37.9
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1763,6 +1792,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &6426038219339831678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8124251780684905728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cd8fe7daef11ae4ebe72ac9d3dd68bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LocalizationKey: settings_music
 --- !u!1 &9203384831784618332
 GameObject:
   m_ObjectHideFlags: 0

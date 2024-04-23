@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63817d93022759543b57e795c78efe11, type: 3}
   m_Name: LocalizationSettings
   m_EditorClassIdentifier: 
-  TableId: 
-  Sheets: []
+  TableId: 1bNkye6nc0gDa8VIMYOvOoWJU2EZGKWRI2a2FY5PlODk
+  Sheets:
+  - Name: Base
+    Id: 0
+    TextAsset: {fileID: 4900000, guid: 2e8403b8eb9be3f4999fd9eb89d63f42, type: 3}
   SaveFolder: {fileID: 102900000, guid: 506cefe02294a814bb32de64cede1267, type: 3}

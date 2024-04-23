@@ -1,0 +1,12 @@
+Key,English,Russian
+button_start,START,СТАРТ
+pregame_level,LEVEL,УРОВЕНЬ
+pregame_buyHuman,+ HUMAN,+ ЧЕЛОВЕК
+settings_title,SETTINGS,НАСТРОЙКИ
+settings_music,MUSIC,МУЗЫКА
+settings_effects,EFFECTS,ЭФФЕКТЫ
+failed_title,FAILED,ПРОВАЛЕНО
+failed_restart,RESTART,ЕЩЕ РАЗ
+failed_quit,QUIT,ВЫХОД
+endgame_cleared,CLEARED LEVEL ,ПРОЙДЕН УРОВЕНЬ 
+endgame_collected,COLLECTED:,СОБРАНО:
