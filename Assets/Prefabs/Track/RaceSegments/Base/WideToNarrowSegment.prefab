@@ -25382,7 +25382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6560899078278960369, guid: 017bea275530e2e4384bb1e66b92ad93, type: 3}
       propertyPath: _gaps.Array.size
-      value: 10
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6560899078278960369, guid: 017bea275530e2e4384bb1e66b92ad93, type: 3}
       propertyPath: _gaps.Array.data[0]

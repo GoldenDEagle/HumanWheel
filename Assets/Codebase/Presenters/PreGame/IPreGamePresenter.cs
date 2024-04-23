@@ -12,5 +12,6 @@ namespace Assets.Codebase.Presenters.PreGame
         public void StartGameClicked();
         public void BuyHumanClicked();
         public void WatchAdForCoinsClicked();
+        public void LeaderboardButtonClicked();
     }
 }

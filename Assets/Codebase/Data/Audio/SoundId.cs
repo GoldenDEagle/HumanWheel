@@ -12,5 +12,6 @@
         GameWon,
         GameLost,
         AdRewarded,
+        Jump,
     }
 }

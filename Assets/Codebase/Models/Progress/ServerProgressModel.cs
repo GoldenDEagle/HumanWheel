@@ -2,17 +2,14 @@
 using Assets.Codebase.Models.Progress.Data;
 using Assets.Codebase.Utils.Extensions;
 using GamePush;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assets.Codebase.Models.Progress
 {
     public class ServerProgressModel : BaseModel, IProgressModel
     {
         private const string ProgressKey = "Progress";
+        private const string LeaderboardKey = "score";
+
         public SessionProgress SessionProgress { get; private set; }
 
         private PersistantProgress _persistantProgress;
@@ -92,6 +89,10 @@ namespace Assets.Codebase.Models.Progress
         {
             // Add check 
             SessionProgress.CurrentLevel.Value++;
+
+
+            // For leaderboard
+            GP_Player.Set(LeaderboardKey, SessionProgress.CurrentLevel.Value);
         }
     }
 }

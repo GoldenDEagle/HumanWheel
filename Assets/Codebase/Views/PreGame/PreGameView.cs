@@ -14,6 +14,7 @@ namespace Assets.Codebase.Views.PreGame
         [SerializeField] private Button _startGameButton;
         [SerializeField] private Button _buyHumanButton;
         [SerializeField] private Button _freeCoinsButton;
+        [SerializeField] private Button _leaderboardButton;
         [SerializeField] private TMP_Text _totalCoinsText;
         [SerializeField] private TMP_Text _currentLevelText;
 
@@ -30,6 +31,7 @@ namespace Assets.Codebase.Views.PreGame
         {
             _buyHumanButton.OnClickAsObservable().Subscribe(_ => _presenter.BuyHumanClicked()).AddTo(CompositeDisposable);
             _freeCoinsButton.OnClickAsObservable().Subscribe(_ => _presenter.WatchAdForCoinsClicked()).AddTo(CompositeDisposable);
+            _leaderboardButton.OnClickAsObservable().Subscribe(_ => _presenter.LeaderboardButtonClicked()).AddTo(CompositeDisposable);
         }
 
         protected override void SubscribeToPresenterEvents()

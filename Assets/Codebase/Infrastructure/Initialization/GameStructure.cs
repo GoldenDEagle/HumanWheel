@@ -70,7 +70,12 @@ namespace Assets.Codebase.Infrastructure.Initialization
 
         private void CreateModels()
         {
+#if UNITY_EDITOR
             _progressModel = new LocalProgressModel();
+#else
+            _progressModel = new ServerProgressModel();
+#endif
+
             _gameplayModel = new GameplayModel();
         }
 

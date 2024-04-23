@@ -135,6 +135,7 @@ namespace Assets.Codebase.Mechanics.Controller
 
         public void DoJump()
         {
+            _audio.PlaySfxSound(SoundId.Jump);
             _rigidBody.AddForce((0.5f * Vector3.forward + Vector3.up) * _jumpForce, ForceMode.Impulse);
         }
 

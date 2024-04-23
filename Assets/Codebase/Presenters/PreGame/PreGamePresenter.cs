@@ -6,6 +6,7 @@ using Assets.Codebase.Views.Base;
 using System;
 using UniRx;
 using Cysharp.Threading.Tasks;
+using GamePush;
 
 namespace Assets.Codebase.Presenters.PreGame
 {
@@ -54,6 +55,7 @@ namespace Assets.Codebase.Presenters.PreGame
             if (ProgressModel.SessionProgress.TotalCoins.Value < _buyHumanPrice) return;
 
             ProgressModel.ModifyTotalCoins(-_buyHumanPrice);
+            TotalCoinsString.Value = ProgressModel.SessionProgress.TotalCoins.Value.ToString();
 
             GameplayModel.AddHumanToWheel();
         }
@@ -68,7 +70,10 @@ namespace Assets.Codebase.Presenters.PreGame
             adService.ShowRewarded();
         }
 
-
+        public void LeaderboardButtonClicked()
+        {
+            GP_Leaderboard.Open();
+        }
 
 
 

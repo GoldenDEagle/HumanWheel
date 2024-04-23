@@ -1,6 +1,7 @@
 ﻿using Assets.Codebase.Models.Base;
 using Assets.Codebase.Models.Progress.Data;
 using Assets.Codebase.Utils.Extensions;
+using GamePush;
 using UnityEngine;
 
 namespace Assets.Codebase.Models.Progress
