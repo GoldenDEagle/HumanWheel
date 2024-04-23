@@ -25,6 +25,7 @@ namespace Assets.Codebase.Infrastructure.ServicesManagment.ViewCreation
         private const string IngameViewPath = "Views/IngameView";
         private const string FailViewPath = "Views/FailView";
         private const string PreGameViewPath = "Views/PreGameView";
+        private const string SettingsViewPath = "Views/SettingsView";
 
         private IAssetProvider _assets;
 
@@ -69,6 +70,9 @@ namespace Assets.Codebase.Infrastructure.ServicesManagment.ViewCreation
                     break;
                 case ViewId.PreGameView:
                     path = PreGameViewPath;
+                    break;
+                case ViewId.SettingsView:
+                    path = SettingsViewPath;
                     break;
                 default:
                     throw new System.ArgumentException(nameof(viewId));

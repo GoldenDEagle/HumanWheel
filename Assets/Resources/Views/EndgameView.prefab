@@ -850,6 +850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8179e9e6ccf178f409087fdc03be916f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _window: {fileID: 3719523564858253957}
   _totalCoinsText: {fileID: 6999615164269121566}
   _collectedCoinsText: {fileID: 270622255996020751}
   _clearedLevelText: {fileID: 1015580049678995968}

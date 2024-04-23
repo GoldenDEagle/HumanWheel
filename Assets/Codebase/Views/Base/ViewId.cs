@@ -11,5 +11,6 @@
         FailView,
         PauseView,
         PreGameView,
+        SettingsView,
     }
 }

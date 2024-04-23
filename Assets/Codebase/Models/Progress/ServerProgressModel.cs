@@ -92,7 +92,7 @@ namespace Assets.Codebase.Models.Progress
 
 
             // For leaderboard
-            GP_Player.Set(LeaderboardKey, SessionProgress.CurrentLevel.Value);
+            GP_Player.Set(LeaderboardKey, SessionProgress.CurrentLevel.Value - 1);
         }
     }
 }

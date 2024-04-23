@@ -6,6 +6,8 @@ namespace Assets.Codebase.Views.Base
 {
     public abstract class BaseView : MonoBehaviour
     {
+        [SerializeField] private RectTransform _window;
+
         protected IPresenter Presenter;
 
         /// <summary>

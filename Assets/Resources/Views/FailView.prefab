@@ -338,6 +338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2a32083dc291e49b53cda80f7d175f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _window: {fileID: 4224215320316487988}
   _restartButton: {fileID: 6682721887405995016}
   _quitButton: {fileID: 5926715658236373763}
 --- !u!1 &2883327292313241621
@@ -516,7 +517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding:
     m_Left: 0
-    m_Right: 0
+    m_Right: 5
     m_Top: 25
     m_Bottom: 0
   m_ChildAlignment: 4
@@ -936,7 +937,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d7560b0f336bba7498aa575d232ef81f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 448da1362e1336540b9e48db487816ee, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

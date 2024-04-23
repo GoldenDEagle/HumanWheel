@@ -16,6 +16,7 @@ using Assets.Codebase.Presenters.Fail;
 using Assets.Codebase.Presenters.Ingame;
 using Assets.Codebase.Presenters.MainMenu;
 using Assets.Codebase.Presenters.PreGame;
+using Assets.Codebase.Presenters.Settings;
 using GamePush;
 using System.Collections.Generic;
 using UnityEngine;
@@ -89,7 +90,8 @@ namespace Assets.Codebase.Infrastructure.Initialization
                 new EndgamePresenter(),
                 new FailPresenter(),
                 new IngamePresenter(),
-                new PreGamePresenter()
+                new PreGamePresenter(),
+                new SettingsPresenter(),
             };
 
             foreach (var presenter in _presenters)

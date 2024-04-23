@@ -75,6 +75,11 @@ namespace Assets.Codebase.Presenters.PreGame
             GP_Leaderboard.Open();
         }
 
+        public void SettingsClicked()
+        {
+            GameplayModel.ActivateView(ViewId.SettingsView);
+        }
+
 
 
         private void OnRewardGranted()
