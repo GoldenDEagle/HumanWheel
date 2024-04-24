@@ -1,5 +1,6 @@
 ﻿using Assets.Codebase.Data.Audio;
 using Assets.Codebase.Infrastructure.ServicesManagment;
+using Assets.Codebase.Infrastructure.ServicesManagment.Assets;
 using Assets.Codebase.Infrastructure.ServicesManagment.Audio;
 using Assets.Codebase.Infrastructure.ServicesManagment.ModelAccess;
 using Assets.Codebase.Mechanics.Controller;
@@ -16,6 +17,7 @@ namespace Assets.Codebase.Mechanics.Collectables
 
         private Collider _collider;
         private IModelAccesService _modelAccesService;
+        private IAssetProvider _assetProvider;
 
         private bool _isBeingDestroyed = false;
 
@@ -23,6 +25,7 @@ namespace Assets.Codebase.Mechanics.Collectables
         {
             _collider = GetComponent<Collider>();
             _modelAccesService = ServiceLocator.Container.Single<IModelAccesService>();
+            _assetProvider = ServiceLocator.Container.Single<IAssetProvider>();
         }
 
         private void Start()
@@ -49,6 +52,9 @@ namespace Assets.Codebase.Mechanics.Collectables
 
                 // add coin logic
                 _modelAccesService.GameplayModel.ModifyRunCoinAmount(1);
+
+                var effect = _assetProvider.Instantiate("Effects/CoinCollectEffect");
+                effect.transform.position = transform.position;
 
                 // animated destroy
                 ServiceLocator.Container.Single<IAudioService>().PlaySfxSound(SoundId.CoinCollected);

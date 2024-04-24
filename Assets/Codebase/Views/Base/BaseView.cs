@@ -1,4 +1,5 @@
 ﻿using Assets.Codebase.Presenter.Base;
+using DG.Tweening;
 using UniRx;
 using UnityEngine;
 
@@ -28,6 +29,10 @@ namespace Assets.Codebase.Views.Base
 
         protected virtual void OnEnable()
         {
+            if (_window == null) return;
+
+            _window.localScale = Vector3.zero;
+            _window.DOScale(Vector3.one, 1f).SetEase(Ease.InOutBack);
         }
 
         protected virtual void OnDisable() 
