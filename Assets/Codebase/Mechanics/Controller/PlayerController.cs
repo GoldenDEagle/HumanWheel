@@ -151,6 +151,11 @@ namespace Assets.Codebase.Mechanics.Controller
         {
             Debug.Log("Lost all units!");
             _allUnitsLost = true;
+            if (_isFinished)
+            {
+                _rigidBody.useGravity = false;
+                _rigidBody.velocity = Vector3.zero;
+            }
         }
 
         private void LastUnitRemains()

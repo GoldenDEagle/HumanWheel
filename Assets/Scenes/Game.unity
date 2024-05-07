@@ -273,7 +273,7 @@ MonoBehaviour:
   _acceleration: 15
   _sideAcceleration: 10
   _wallBoostStrength: 8
-  _jumpForce: 6
+  _jumpForce: 3
   _unitContainer: {fileID: 143094182}
 --- !u!54 &107594068
 Rigidbody:

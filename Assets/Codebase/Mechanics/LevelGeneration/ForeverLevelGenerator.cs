@@ -14,6 +14,8 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
 {
     public class ForeverLevelGenerator : MonoBehaviour
     {
+        private const string LevelAssetPath = "LevelGenerator/Level ";
+
         [SerializeField]
         private ForeverLevel _level;
         [SerializeField]
@@ -48,23 +50,29 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
         private void Start()
         {
             _models.GameplayModel.CurrentRunCoins.Value = 0;
-            int levelAssetNumber;
-            switch(_models.ProgressModel.SessionProgress.CurrentLevel.Value)
+            int levelAssetNumber = _models.ProgressModel.SessionProgress.CurrentLevel.Value;
+            //switch(_models.ProgressModel.SessionProgress.CurrentLevel.Value)
+            //{
+            //    case 1:
+            //        levelAssetNumber = 1;
+            //        break;
+            //    case 2:
+            //        levelAssetNumber = 2;
+            //        break;
+            //    case 3:
+            //        levelAssetNumber = 3;
+            //        break;
+            //    default:
+            //        levelAssetNumber = 0;
+            //        break;
+            //}
+
+            // if extends max level
+            if (levelAssetNumber > 6)
             {
-                case 1:
-                    levelAssetNumber = 1;
-                    break;
-                case 2:
-                    levelAssetNumber = 2;
-                    break;
-                case 3:
-                    levelAssetNumber = 3;
-                    break;
-                default:
-                    levelAssetNumber = 0;
-                    break;
+                levelAssetNumber = 0;
             }
-            _level = _assetProvider.LoadResource<ForeverLevel>("LevelGenerator/Level " + levelAssetNumber);
+            _level = _assetProvider.LoadResource<ForeverLevel>(LevelAssetPath + levelAssetNumber);
 
             Generate();
         }
