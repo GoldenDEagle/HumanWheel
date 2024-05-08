@@ -68,7 +68,7 @@ namespace Assets.Codebase.Mechanics.LevelGeneration
             //}
 
             // if extends max level
-            if (levelAssetNumber > 6)
+            if (levelAssetNumber > 20)
             {
                 levelAssetNumber = 0;
             }

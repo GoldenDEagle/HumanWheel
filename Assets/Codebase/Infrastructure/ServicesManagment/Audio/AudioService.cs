@@ -32,6 +32,8 @@ namespace Assets.Codebase.Infrastructure.ServicesManagment.Audio
             InitData();
             progressModel.SessionProgress.SFXVolume.Subscribe(value => SetSFXVolume(value));
             progressModel.SessionProgress.MusicVolume.Subscribe(value => SetMusicVolume(value));
+            SetSFXVolume(progressModel.SessionProgress.SFXVolume.Value);
+            SetMusicVolume(progressModel.SessionProgress.MusicVolume.Value);
         }
 
         private void InitData()

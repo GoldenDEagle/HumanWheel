@@ -140,6 +140,7 @@ namespace Assets.Codebase.Infrastructure.Initialization
         private void ApplyAfterLoadParams()
         {
             var services = ServiceLocator.Container;
+            
 
             if (GameLaunchParameters.ManualParamSet)
             {
