@@ -35,8 +35,8 @@ namespace Assets.Codebase.Models.Progress.Data
         {
             CurrentLevel = new ReactiveProperty<int>(progress.CurrentLevel);
             TotalCoins = new ReactiveProperty<int>(progress.TotalCoins);
-            MusicVolume = new ReactiveProperty<float>();
-            SFXVolume = new ReactiveProperty<float>();
+            MusicVolume = new ReactiveProperty<float>(progress.MusicVolume);
+            SFXVolume = new ReactiveProperty<float>(progress.SFXVolume);
         }
     }
 }

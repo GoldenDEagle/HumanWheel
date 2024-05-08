@@ -20,7 +20,10 @@ namespace Assets.Codebase.Views.Settings
             _presenter = presenter as ISettingsPresenter;
 
             base.Init(_presenter);
+        }
 
+        private void SetInitialSliders()
+        {
             _musicSlider.SetValueWithoutNotify(_presenter.GetCurrentMusicVolume());
             _effectsSlider.SetValueWithoutNotify(_presenter.GetCurrentEffectsVolume());
         }
@@ -30,6 +33,12 @@ namespace Assets.Codebase.Views.Settings
             _musicSlider.OnValueChangedAsObservable().Subscribe(value => _presenter.MusicSliderMoved(value)).AddTo(CompositeDisposable);
             _effectsSlider.OnValueChangedAsObservable().Subscribe(value => _presenter.EffectsSliderMoved(value)).AddTo(CompositeDisposable);
             _closeWindowButton.OnClickAsObservable().Subscribe(_ => _presenter.CloseClicked()).AddTo(CompositeDisposable);
+        }
+
+        protected override void SubscribeToPresenterEvents()
+        {
+            base.SubscribeToPresenterEvents();
+            _presenter.OnInitialSet.Subscribe(_ => SetInitialSliders()).AddTo(CompositeDisposable);
         }
     }
 }

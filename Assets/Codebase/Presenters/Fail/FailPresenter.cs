@@ -5,11 +5,16 @@ using Assets.Codebase.Models.Gameplay.Data;
 using Assets.Codebase.Presenters.Base;
 using Assets.Codebase.Utils.Values;
 using Assets.Codebase.Views.Base;
+using System;
+using Assets.Codebase.Infrastructure.ServicesManagment.Ads;
+using UniRx;
 
 namespace Assets.Codebase.Presenters.Fail
 {
     public class FailPresenter : BasePresenter, IFailPresenter
     {
+        private IDisposable _adSubscription;
+
         public FailPresenter()
         {
             CorrespondingViewId = ViewId.FailView;
@@ -23,12 +28,30 @@ namespace Assets.Codebase.Presenters.Fail
 
         public void QuitClicked()
         {
-            GameplayModel.LoadScene(SceneNames.MAIN_MENU, OnMenuLoaded);
+            var adService = ServiceLocator.Container.Single<IAdsService>();
+
+            if (!adService.CheckIfFullscreenIsAvailable())
+            {
+                QuitAfterAd();
+                return;
+            }
+
+            _adSubscription = adService.OnFullscreenClosed.Subscribe(_ => QuitAfterAd()).AddTo(CompositeDisposable);
+            adService.ShowFullscreen();
         }
 
         public void RestartClicked()
         {
-            GameplayModel.LoadScene(SceneNames.GAME, OnGameLoaded);
+            var adService = ServiceLocator.Container.Single<IAdsService>();
+
+            if (!adService.CheckIfFullscreenIsAvailable())
+            {
+                PlayAfterAd();
+                return;
+            }
+
+            _adSubscription = adService.OnFullscreenClosed.Subscribe(_ => PlayAfterAd()).AddTo(CompositeDisposable);
+            adService.ShowFullscreen();
         }
 
 
@@ -44,6 +67,24 @@ namespace Assets.Codebase.Presenters.Fail
         {
             GameplayModel.ChangeGameState(GameState.Menu);
             GameplayModel.ActivateView(ViewId.MainMenuView);
+        }
+
+        private void QuitAfterAd()
+        {
+            if ( CompositeDisposable.Contains(_adSubscription))
+            {
+                CompositeDisposable.Remove(_adSubscription);
+            }
+            GameplayModel.LoadScene(SceneNames.MAIN_MENU, OnMenuLoaded);
+        }
+
+        private void PlayAfterAd()
+        {
+            if (CompositeDisposable.Contains(_adSubscription))
+            {
+                CompositeDisposable.Remove(_adSubscription);
+            }
+            GameplayModel.LoadScene(SceneNames.GAME, OnGameLoaded);
         }
     }
 }
