@@ -22,6 +22,7 @@ namespace Assets.Codebase.Mechanics.Controller
         [SerializeField] private float _sideAcceleration = 5f;
 
         [Header("Gameplay mechanics params")]
+        [SerializeField] private float _wallClimbSpeed = 20f;
         [SerializeField] private float _wallBoostStrength = 5000f;
         [SerializeField] private float _jumpForce = 2500f;
 
@@ -130,7 +131,7 @@ namespace Assets.Codebase.Mechanics.Controller
         public void EscapeWall()
         {
             _isOnTheWall = false;
-            _rigidBody.AddForce((0.25f * Vector3.forward + Vector3.down) * _wallBoostStrength, ForceMode.VelocityChange);
+            _rigidBody.AddForce((Vector3.forward + Vector3.down) * _wallBoostStrength, ForceMode.VelocityChange);
         }
 
         public void DoJump()
@@ -213,7 +214,7 @@ namespace Assets.Codebase.Mechanics.Controller
             // Logic for climbing walls
             if (_isOnTheWall)
             {
-                _rigidBody.velocity = new Vector3(0f, 10f, 0.5f);
+                _rigidBody.velocity = new Vector3(0f, _wallClimbSpeed, 0.5f);
                 return;
             }
 

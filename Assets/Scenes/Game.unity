@@ -272,7 +272,8 @@ MonoBehaviour:
   _maxSpeed: 22
   _acceleration: 17.5
   _sideAcceleration: 10
-  _wallBoostStrength: 8
+  _wallClimbSpeed: 15
+  _wallBoostStrength: 6
   _jumpForce: 1
   _unitContainer: {fileID: 143094182}
 --- !u!54 &107594068
