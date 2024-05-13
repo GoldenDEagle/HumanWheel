@@ -208,7 +208,7 @@ namespace Assets.Codebase.Mechanics.Controller
         {
             if (_models.GameplayModel.State.Value != GameState.Game) return;
 
-            if (_allUnitsLost || _lastUnitRemains) return;
+            if (_allUnitsLost || (_lastUnitRemains && !_isFinished)) return;
 
             // Logic for climbing walls
             if (_isOnTheWall)
