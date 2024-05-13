@@ -18,7 +18,6 @@ namespace Assets.Codebase.RaceElements
             PlayerController playerWheel = other.GetComponent<PlayerController>();
             if (playerWheel)
             {
-                _collider.enabled = false;
                 playerWheel.EscapeWall();
                 Debug.Log("Wall passed!");
             }

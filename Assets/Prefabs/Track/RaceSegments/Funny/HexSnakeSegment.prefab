@@ -2337,10 +2337,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5380218
-  m_Height: 3.0380313
+  m_Radius: 1.25
+  m_Height: 3
   m_Direction: 1
-  m_Center: {x: 0, y: 1.5190159, z: 0}
+  m_Center: {x: 0, y: 1.75, z: 0}
 --- !u!33 &2657819887840963958 stripped
 MeshFilter:
   m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: b9113330d99b33d41bb0726fc9f3201a, type: 3}
@@ -2618,10 +2618,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5380218
-  m_Height: 3.0380313
+  m_Radius: 1.25
+  m_Height: 3
   m_Direction: 1
-  m_Center: {x: 0, y: 1.5190159, z: 0}
+  m_Center: {x: 0, y: 1.75, z: 0}
 --- !u!4 &4365609607572939628 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 032fac2d7bd00b94b88e5e897039f09c, type: 3}
@@ -2724,10 +2724,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5380218
-  m_Height: 3.0380313
+  m_Radius: 1.25
+  m_Height: 3
   m_Direction: 1
-  m_Center: {x: 0, y: 1.5190159, z: 0}
+  m_Center: {x: 0, y: 1.75, z: 0}
 --- !u!33 &8614687672704218676 stripped
 MeshFilter:
   m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: 032fac2d7bd00b94b88e5e897039f09c, type: 3}
@@ -2829,10 +2829,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5380218
-  m_Height: 3.0380313
+  m_Radius: 1.25
+  m_Height: 3
   m_Direction: 1
-  m_Center: {x: 0, y: 1.5190159, z: 0}
+  m_Center: {x: 0, y: 1.75, z: 0}
 --- !u!4 &5504293280042540022 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b9113330d99b33d41bb0726fc9f3201a, type: 3}
@@ -2940,10 +2940,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5380218
-  m_Height: 3.0380313
+  m_Radius: 1.25
+  m_Height: 3
   m_Direction: 1
-  m_Center: {x: 0, y: 1.5190159, z: 0}
+  m_Center: {x: 0, y: 1.75, z: 0}
 --- !u!4 &7717606248946933348 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 032fac2d7bd00b94b88e5e897039f09c, type: 3}

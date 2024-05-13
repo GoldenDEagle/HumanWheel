@@ -22712,6 +22712,7 @@ MonoBehaviour:
   _placeCoins: 1
   _humanPositions:
   - {fileID: 3691919291989481751}
+  - {fileID: 7100122021724711985}
   _coinPositions:
   - {fileID: 1487826706394669013}
   - {fileID: 320228274869155404}
