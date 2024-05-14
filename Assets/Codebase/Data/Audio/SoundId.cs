@@ -9,9 +9,12 @@
         CoinCollected,
         HumanCollected,
         HumanLost,
-        GameWon,
-        GameLost,
+        Success,
+        Failure,
         AdRewarded,
         Jump,
+        MainTheme,
+        WinLoop,
+        LoseLoop,
     }
 }

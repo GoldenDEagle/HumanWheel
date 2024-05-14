@@ -1,4 +1,6 @@
+using Assets.Codebase.Data.Audio;
 using Assets.Codebase.Infrastructure.ServicesManagment;
+using Assets.Codebase.Infrastructure.ServicesManagment.Audio;
 using Assets.Codebase.Infrastructure.ServicesManagment.ModelAccess;
 using Assets.Codebase.Mechanics.Controller;
 using Assets.Codebase.RaceElements;
@@ -33,7 +35,12 @@ namespace CodeBase.RaceElements
                 _collider.enabled = false;
                 Debug.Log("Finish crossed!");
 
+                // Effects
+                ServiceLocator.Container.Single<IAudioService>().PauseMusic();
+                ServiceLocator.Container.Single<IAudioService>().PlaySfxSound(SoundId.Success);
+
                 // Connect with player
+
                 playerWheel.FinishCrossed();
                 playerWheel.UnitContainer.OnAllUnitsLost += AllUnitsPlaced;
 

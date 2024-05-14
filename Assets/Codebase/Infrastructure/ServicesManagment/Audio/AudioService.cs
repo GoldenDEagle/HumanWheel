@@ -64,6 +64,17 @@ namespace Assets.Codebase.Infrastructure.ServicesManagment.Audio
         public void ChangeMusic(SoundId musicId)
         {
             _musicSource.clip = _clips[musicId];
+            _musicSource.Play();
+        }
+
+        public void PauseMusic()
+        {
+            _musicSource.Pause();
+        }
+
+        public void UnPauseMusic()
+        {
+            _musicSource.UnPause();
         }
 
         public void PlaySfxSound(SoundId soundId)

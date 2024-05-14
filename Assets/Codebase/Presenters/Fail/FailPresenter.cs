@@ -23,7 +23,7 @@ namespace Assets.Codebase.Presenters.Fail
         public override void CreateView()
         {
             base.CreateView();
-            ServiceLocator.Container.Single<IAudioService>().PlaySfxSound(SoundId.GameLost);
+            ServiceLocator.Container.Single<IAudioService>().PlaySfxSound(SoundId.Failure);
         }
 
         public void QuitClicked()

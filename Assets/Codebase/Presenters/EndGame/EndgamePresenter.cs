@@ -39,7 +39,8 @@ namespace Assets.Codebase.Presenters.EndGame
         public override void CreateView()
         {
             base.CreateView();
-            ServiceLocator.Container.Single<IAudioService>().PlaySfxSound(SoundId.GameWon);
+            //ServiceLocator.Container.Single<IAudioService>().PlaySfxSound(SoundId.Success);
+            ServiceLocator.Container.Single<IAudioService>().ChangeMusic(SoundId.WinLoop);
             DoubleRewardButtonActiveState.Value = ServiceLocator.Container.Single<IAdsService>().CheckIfRewardedIsAvailable();
             CollectedCoinsString.Value = GameplayModel.CurrentRunCoins.Value.ToString();
             ClearedLevelString.Value = ServiceLocator.Container.Single<ILocalizationService>().LocalizeTextByKey(LEVELCLEARED_KEY) + " " + ProgressModel.SessionProgress.CurrentLevel.ToString();
@@ -125,6 +126,12 @@ namespace Assets.Codebase.Presenters.EndGame
         {
             CompositeDisposable.Remove(_rewardedSubscription);
             PrettyCoinIncrease(GameplayModel.CurrentRunCoins.Value, 2);
+        }
+
+        public override void CloseView()
+        {
+            base.CloseView();
+            ServiceLocator.Container.Single<IAudioService>().ChangeMusic(SoundId.MainTheme);
         }
     }
 }

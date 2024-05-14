@@ -55,7 +55,7 @@ namespace Assets.Codebase.Presenters.Base
             GameplayModel.OnViewClosed.Where(activeView => activeView == CorrespondingViewId).Subscribe(_ => CloseView()).AddTo(CompositeDisposable);
         }
 
-        public void CloseView()
+        public virtual void CloseView()
         {
             if (!_isViewActive) return;
 

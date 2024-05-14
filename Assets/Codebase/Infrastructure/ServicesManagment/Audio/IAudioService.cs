@@ -18,6 +18,8 @@ namespace Assets.Codebase.Infrastructure.ServicesManagment.Audio
         /// </summary>
         /// <param name="musicId"></param>
         public void ChangeMusic(SoundId musicId);
+        public void PauseMusic();
+        public void UnPauseMusic();
 
         /// <summary>
         /// Mutes all audio.
