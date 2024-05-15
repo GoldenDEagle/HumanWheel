@@ -7,7 +7,6 @@
         UIClick,
         UIWindowOpen,
         CoinCollected,
-        HumanCollected,
         HumanLost,
         Success,
         Failure,
@@ -16,5 +15,13 @@
         MainTheme,
         WinLoop,
         LoseLoop,
+        CollectMan_1,
+        CollectMan_2,
+        CollectMan_3,
+        CollectWoman_1,
+        CollectWoman_2,
+        CollectWoman_3,
+        SliderMoved,
+        UIWindowClosed,
     }
 }

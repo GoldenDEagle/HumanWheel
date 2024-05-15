@@ -1,4 +1,7 @@
-﻿using Assets.Codebase.Presenter.Base;
+﻿using Assets.Codebase.Data.Audio;
+using Assets.Codebase.Infrastructure.ServicesManagment;
+using Assets.Codebase.Infrastructure.ServicesManagment.Audio;
+using Assets.Codebase.Presenter.Base;
 using DG.Tweening;
 using UniRx;
 using UnityEngine;
@@ -7,6 +10,8 @@ namespace Assets.Codebase.Views.Base
 {
     public abstract class BaseView : MonoBehaviour
     {
+        [SerializeField] private bool _closeWindowAnimation = false;
+        [SerializeField] private bool _closeWindowSound = false;
         [SerializeField] private RectTransform _window;
 
         protected IPresenter Presenter;
@@ -59,7 +64,22 @@ namespace Assets.Codebase.Views.Base
         /// </summary>
         private void CloseView()
         {
-            // Or other close logic
+            if (_closeWindowSound)
+            {
+                ServiceLocator.Container.Single<IAudioService>().PlaySfxSound(SoundId.UIWindowClosed);
+            }
+
+            if (_window == null || _closeWindowAnimation == false)
+            {
+                DestroyView();
+                return;
+            }
+
+            _window.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack).OnComplete(DestroyView);
+        }
+
+        private void DestroyView()
+        {
             Destroy(gameObject);
         }
     }

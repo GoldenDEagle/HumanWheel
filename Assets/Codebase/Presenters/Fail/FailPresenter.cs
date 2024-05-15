@@ -28,6 +28,11 @@ namespace Assets.Codebase.Presenters.Fail
 
         public void QuitClicked()
         {
+#if UNITY_EDITOR
+            GameplayModel.LoadScene(SceneNames.MAIN_MENU, OnMenuLoaded);
+            return;
+#endif
+
             var adService = ServiceLocator.Container.Single<IAdsService>();
 
             if (!adService.CheckIfFullscreenIsAvailable())
@@ -42,6 +47,11 @@ namespace Assets.Codebase.Presenters.Fail
 
         public void RestartClicked()
         {
+#if UNITY_EDITOR
+            GameplayModel.LoadScene(SceneNames.GAME, OnGameLoaded);
+            return;
+#endif
+
             var adService = ServiceLocator.Container.Single<IAdsService>();
 
             if (!adService.CheckIfFullscreenIsAvailable())

@@ -1,4 +1,5 @@
-﻿using Assets.Codebase.Mechanics.Controller;
+﻿using Assets.Codebase.Data.Audio;
+using Assets.Codebase.Mechanics.Controller;
 using UnityEngine;
 
 namespace Assets.Codebase.Mechanics.Units
@@ -10,8 +11,11 @@ namespace Assets.Codebase.Mechanics.Units
 
         [SerializeField] private Animator _humanAnimator;
         [SerializeField] private bool _isConnected;
+        [SerializeField] private SoundId _collectionSound;
 
         private Collider _collider;
+
+        public SoundId CollectionSound => _collectionSound;
 
         private void Awake()
         {

@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _humanAnimator: {fileID: 3115596351957940107}
   _isConnected: 0
+  _collectionSound: 17
 --- !u!65 &1808162113179156854
 BoxCollider:
   m_ObjectHideFlags: 0

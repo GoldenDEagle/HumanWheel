@@ -123,7 +123,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _playSoundOnClick: 1
-  _soundId: 1
+  _soundId: 2
 --- !u!1 &1142673647639123153
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,7 +322,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _playSoundOnClick: 1
-  _soundId: 1
+  _soundId: 2
 --- !u!1 &1597224631147738832
 GameObject:
   m_ObjectHideFlags: 0

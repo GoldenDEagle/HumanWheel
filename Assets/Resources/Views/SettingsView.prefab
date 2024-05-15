@@ -865,6 +865,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffc8bb27346c27c4787e16fd2717bd54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _closeWindowAnimation: 1
+  _closeWindowSound: 1
   _window: {fileID: 4224215320316487988}
   _closeWindowButton: {fileID: 8765159233075831105}
   _musicSlider: {fileID: 3407405440335904213}

@@ -101,7 +101,7 @@ namespace Assets.Codebase.Mechanics.Controller
 
         public void AttachNewUnit(HumanUnit unit)
         {
-            _audio.PlaySfxSound(SoundId.HumanCollected);
+            _audio.PlaySfxSound(unit.CollectionSound);
             _unitContainer.AddUnit(unit);
             UpdateWheelSize(_unitContainer.Radius);
         }
