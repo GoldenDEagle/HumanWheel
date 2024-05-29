@@ -4,6 +4,7 @@ using Assets.Codebase.Infrastructure.ServicesManagment.Assets;
 using Assets.Codebase.Infrastructure.ServicesManagment.Audio;
 using Assets.Codebase.Infrastructure.ServicesManagment.ModelAccess;
 using Assets.Codebase.Mechanics.Controller;
+using Assets.Codebase.Optimizations.Pooling;
 using DG.Tweening;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ namespace Assets.Codebase.Mechanics.Collectables
         private Collider _collider;
         private IModelAccesService _modelAccesService;
         private IAssetProvider _assetProvider;
+        private IPoolController _poolController;
 
         private bool _isBeingDestroyed = false;
 
@@ -26,6 +28,7 @@ namespace Assets.Codebase.Mechanics.Collectables
             _collider = GetComponent<Collider>();
             _modelAccesService = ServiceLocator.Container.Single<IModelAccesService>();
             _assetProvider = ServiceLocator.Container.Single<IAssetProvider>();
+            _poolController = ServiceLocator.Container.Single<IPoolController>();
         }
 
         private void Start()
@@ -53,7 +56,9 @@ namespace Assets.Codebase.Mechanics.Collectables
                 // add coin logic
                 _modelAccesService.GameplayModel.ModifyRunCoinAmount(1);
 
-                var effect = _assetProvider.Instantiate("Effects/CoinCollectEffect");
+                //var effect = _assetProvider.Instantiate("Effects/CoinCollectEffect");
+
+                var effect = _poolController.CoinCollectionEffects.Get();
                 effect.transform.position = transform.position;
 
                 // animated destroy

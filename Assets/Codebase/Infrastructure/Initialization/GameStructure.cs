@@ -9,6 +9,7 @@ using Assets.Codebase.Infrastructure.ServicesManagment.PresenterManagement;
 using Assets.Codebase.Infrastructure.ServicesManagment.ViewCreation;
 using Assets.Codebase.Models.Gameplay;
 using Assets.Codebase.Models.Progress;
+using Assets.Codebase.Optimizations.Pooling;
 using Assets.Codebase.Presenters.Base;
 using Assets.Codebase.Presenters.EndGame;
 using Assets.Codebase.Presenters.Example;
@@ -116,6 +117,7 @@ namespace Assets.Codebase.Infrastructure.Initialization
             services.RegisterSingle<IPresentersService>(new PresentersService(_presenters));
             services.RegisterSingle<IModelAccesService>(new ModelAccessService(_progressModel, _gameplayModel));
             services.RegisterSingle<IGOFactory>(new GOFactory(services.Single<IAssetProvider>()));
+            services.RegisterSingle<IPoolController>(new PoolController(services.Single<IAssetProvider>()));
         }
 
 
